@@ -23,28 +23,43 @@ public class GeneticOperations {
         if (n % 2 == 1) {
             n--;
         }
-        int j=0;
-        for (int i = 0; i < n ; i += 2) {
-           U = rnd.nextDouble();
-           if(U<uc){
+        int j = 0;
+        for (int i = 0; i < n; i += 2) {
+            U = rnd.nextDouble();
+            if (U < uc) {
 
-               SimpleMatrix parents2 = new SimpleMatrix(2,parents.numCols());
-               parents2.insertIntoThis(0,0,parents.extractVector(true,i));
-               parents2.insertIntoThis(1,0,parents.extractVector(true,i+1));
-               pop.insertIntoThis(j, 0, methodSimpleCrossOver(parents2));
-               j+=2;
-           }
+                SimpleMatrix parents2 = new SimpleMatrix(2, parents.numCols());
+                parents2.insertIntoThis(0, 0, parents.extractVector(true, i));
+                parents2.insertIntoThis(1, 0, parents.extractVector(true, i + 1));
+                pop.insertIntoThis(j, 0, singlePointCrossover(parents2));
+                j += 2;
+            }
 
         }
+
+        // TODO de testat
+        if (parents.numRows() % 2 == 1)
+            pop.insertIntoThis(j - 1, 0, parents.extractVector(true, n));
 
 
         return pop;
     }
 
-    private static SimpleMatrix methodSimpleCrossOver(SimpleMatrix parents){
-       SimpleMatrix pop = parents;
+    private static SimpleMatrix singlePointCrossover(SimpleMatrix parents) {
+        Random rnd = new Random();
+        int cols = parents.numCols();
+        int U = rnd.nextInt(cols - 1) + 1;
 
+        SimpleMatrix pop = parents;
 
-       return pop;
+        SimpleMatrix tmpA,tmpB;
+
+        tmpA = parents.extractMatrix(0,0,U,cols);
+        tmpB = parents.extractMatrix(1,1,U,cols);
+
+        parents.insertIntoThis(0,U,tmpB);
+        parents.insertIntoThis(1,U,tmpA);
+
+        return pop;
     }
 }
