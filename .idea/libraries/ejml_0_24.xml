@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="ejml-0.24">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/rec/ejml-0.24.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/ejml-0.24.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
