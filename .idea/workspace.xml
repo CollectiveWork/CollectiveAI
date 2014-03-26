@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="121eb770-eeaa-4dc5-a080-585973323e01" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\Users\AndreiMadalin\IdeaProjects\CollectiveAI\rec\ejml-0.24.jar" afterPath="$PROJECT_DIR$/resources/ejml-0.24.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/GeneticOperations.java" afterPath="$PROJECT_DIR$/src/ga/GeneticOperations.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/Main.java" afterPath="$PROJECT_DIR$/src/ga/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/Population.java" afterPath="$PROJECT_DIR$/src/ga/Population.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/ejml_0_24.xml" afterPath="$PROJECT_DIR$/.idea/libraries/ejml_0_24.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CollectiveAI.iws" />
@@ -419,6 +413,11 @@
       <created>1394293448422</created>
       <updated>1394293448422</updated>
     </task>
+    <task id="LOCAL-00001" summary="Updated GA.">
+      <created>1395858114391</created>
+      <updated>1395858114391</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -484,6 +483,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="Updated GA." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated GA." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
