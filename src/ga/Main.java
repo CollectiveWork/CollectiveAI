@@ -9,7 +9,8 @@ import org.ejml.simple.SimpleMatrix;
 public class Main {
     public static void main(String[] args) {
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new EX6(96, 50, 150, .80, .002, true, 96);
+        GeneticAlgorithm ga = new EX1(8, 10, 100, .80, .125, true, 8);
+        //GeneticAlgorithm ga = new EX6(96, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale
        // GeneticAlgorithm ga = new EX3(2, 10, 1000, .80, .5, true, 0, 255);
@@ -20,7 +21,7 @@ public class Main {
             tmp = ga.start(true, "singlePointCrossover");
             fittest = ga.getFittest();
 
-            System.out.println("Cromosom: " + ga.getBinaryCromosom(fittest));
+            System.out.println("Cromosom: " + fittest);
             System.out.println("Fitness: " + ga.getFitness(fittest));
 
         } catch (Exception e) {

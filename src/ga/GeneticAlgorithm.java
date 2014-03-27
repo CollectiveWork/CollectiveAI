@@ -108,7 +108,7 @@ public abstract class GeneticAlgorithm {
                 population = new_population;
             }
             i++;
-            System.out.println(binaryToString(getFittest()));
+            //System.out.println(binaryToString(getFittest()));
         } while (i < it);
 
         // fix all the values after last mutaion
