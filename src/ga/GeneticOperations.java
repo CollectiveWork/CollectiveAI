@@ -52,9 +52,13 @@ public class GeneticOperations {
         for (int i = 0; i < n; i += 2) {
             U = rand.nextDouble();
             if (U < uc) {
-                switch (type){
-                    case "binary": pop.insertIntoThis(0, i, multiPointBinaryCrossover(parents.extractMatrix(0, m, i, i + 2), l)); break;
-                    case "real": pop.insertIntoThis(0, i, realCrossover(parents.extractMatrix(0, m, i, i + 2))); break;
+                switch (type) {
+                    case "binary":
+                        pop.insertIntoThis(0, i, multiPointBinaryCrossover(parents.extractMatrix(0, m, i, i + 2), l));
+                        break;
+                    case "real":
+                        pop.insertIntoThis(0, i, realCrossover(parents.extractMatrix(0, m, i, i + 2)));
+                        break;
                 }
             }
         }
@@ -95,10 +99,10 @@ public class GeneticOperations {
         return pop;
     }
 
-    private static SimpleMatrix realCrossover(SimpleMatrix parents){
+    private static SimpleMatrix realCrossover(SimpleMatrix parents) {
         int n = parents.numCols();
         int m = parents.numRows();
-        SimpleMatrix pop = new SimpleMatrix(m,n);
+        SimpleMatrix pop = new SimpleMatrix(m, n);
         double d = 0.25;
         double a[], b[];
         double tempA, tempB;
@@ -108,8 +112,8 @@ public class GeneticOperations {
         for (int j = 0; j < m; j++) {
             tempA = parents.get(j, 0);
             tempB = parents.get(j, 1);
-            pop.set(j, 0, tempA*(1 - a[j]) + tempB*a[j]);
-            pop.set(j, 1, tempA*(1 - b[j]) + tempB*b[j]);
+            pop.set(j, 0, tempA * (1 - a[j]) + tempB * a[j]);
+            pop.set(j, 1, tempA * (1 - b[j]) + tempB * b[j]);
         }
 
         return pop;
@@ -122,15 +126,15 @@ public class GeneticOperations {
 //            return realMutation(parents, um);
 //    }
 
-    public static SimpleMatrix mutation(SimpleMatrix parents, double um){
+    public static SimpleMatrix mutation(SimpleMatrix parents, double um) {
         Random rand = new Random();
         int n = parents.numCols(); // dimensiunea populatiti
         int m = parents.numRows(); // dimeansiunea unui cromozom
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if(rand.nextDouble() < um){
-                    parents.set(j,i,(parents.get(j,i) == 0 ? 1 : 0));
+                if (rand.nextDouble() < um) {
+                    parents.set(j, i, (parents.get(j, i) == 0 ? 1 : 0));
                 }
             }
         }
@@ -139,7 +143,7 @@ public class GeneticOperations {
     }
 
     // TODO de parametrizat k, r ????
-    public static SimpleMatrix mutation(SimpleMatrix parents, double um, double domain){
+    public static SimpleMatrix mutation(SimpleMatrix parents, double um, double domain) {
         Random rand = new Random();
         Random rand2 = new Random();
         Random rand3 = new Random();
@@ -147,17 +151,17 @@ public class GeneticOperations {
         int m = parents.numRows(); // dimeansiunea unui cromozom
         double new_val;
         int s;
-        int k = 10; // k apartine {4,5,...,20}
-        double r = Math.pow(10,-6); // intervalul de mutatie ( r apartine [Math.pow(10,-6), 0.1] )
+        int k = 7; // k apartine {4,5,...,20}
+        double r = Math.pow(10, -2); // intervalul de mutatie ( r apartine [Math.pow(10,-6), 0.1] )
         double a;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if(rand.nextDouble() < um){
-                    s = Math.round(rand2.nextInt(1)) == 0 ? -1 : 1;
-                    a = Math.pow(2, -1 * rand3.nextDouble()*k);
-                    new_val = parents.get(j,i) + s * (r * domain) * a;
-                    parents.set(j,i,new_val);
+                if (rand.nextDouble() < um) {
+                    s = Math.round(rand2.nextDouble()) == 0 ? -1 : 1;
+                    a = Math.pow(2, -1 * rand3.nextDouble() * k);
+                    new_val = parents.get(j, i) + s * (r * domain) * a;
+                    parents.set(j, i, new_val);
                 }
             }
         }
@@ -186,7 +190,7 @@ public class GeneticOperations {
     }
 
     // metoda de generare a factorului de scalare pentru crossover real
-    private static double[] generateRandom(int n, double d, Random rand){
+    private static double[] generateRandom(int n, double d, Random rand) {
         double low = -1 * d;
         double high = d + 1;
         double a[] = new double[n];
