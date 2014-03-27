@@ -108,6 +108,7 @@ public abstract class GeneticAlgorithm {
                 population = new_population;
             }
             i++;
+            System.out.println(binaryToString(getFittest()));
         } while (i < it);
 
         // fix all the values after last mutaion
@@ -239,12 +240,22 @@ public abstract class GeneticAlgorithm {
         return params;
     }
 
-    protected abstract double fitness(SimpleMatrix cromosom);
+    protected abstract double fitness(SimpleMatrix chromosome);
 
-    public double getFitness(SimpleMatrix cromosom) {
+    public double getFitness(SimpleMatrix chromosome) {
         if (type.equals("binary"))
-            return fitness(getParamsFromCromozom(getBinaryCromosom(cromosom)));
+            return fitness(convertChromosome(chromosome));
         else
-            return fitness(cromosom);
+            return fitness(chromosome);
+    }
+
+    public String binaryToString(SimpleMatrix chromosome){
+        String s = getBinaryCromosom(chromosome);
+        String[] ss = s.split("(?<=\\G.{8})");
+        StringBuilder sb = new StringBuilder();
+        for ( int i = 0; i < ss.length; i++ ) {
+            sb.append( (char)Integer.parseInt( ss[i], 2 ) );
+        }
+        return sb.toString();
     }
 }

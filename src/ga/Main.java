@@ -9,7 +9,7 @@ import org.ejml.simple.SimpleMatrix;
 public class Main {
     public static void main(String[] args) {
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new EX3(16, 10, 1000, .80, .065, true, 8);
+        GeneticAlgorithm ga = new EX6(96, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale
        // GeneticAlgorithm ga = new EX3(2, 10, 1000, .80, .5, true, 0, 255);
@@ -17,10 +17,10 @@ public class Main {
         SimpleMatrix tmp;
         SimpleMatrix fittest;
         try {
-            tmp = ga.start(false, "singlePointCrossover");
+            tmp = ga.start(true, "singlePointCrossover");
             fittest = ga.getFittest();
 
-            System.out.println("Cromosom: " + fittest);
+            System.out.println("Cromosom: " + ga.getBinaryCromosom(fittest));
             System.out.println("Fitness: " + ga.getFitness(fittest));
 
         } catch (Exception e) {
@@ -138,6 +138,30 @@ public class Main {
             }
 
             return 1 / 4000 * sum - product + 1;
+        }
+    }
+
+    public static class EX6 extends GeneticAlgorithm {
+        public EX6(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
+            super(m, n, it, uc, um, elitism, geneSize);
+        }
+
+        @Override
+        protected SimpleMatrix convertChromosome(SimpleMatrix chromosome) {
+            return chromosome;
+        }
+
+        public double fitness(SimpleMatrix chromosome) {
+            String binaryChromosome = getBinaryCromosom(chromosome);
+            String target = "010010000110010101101100011011000110111100100000011101110110111101110010011011000110010000100001";
+            double value = 0.0;
+
+            for (int i = 0; i < target.length(); i++) {
+                if(target.charAt(i) == binaryChromosome.charAt(i))
+                    value++;
+            }
+
+            return value;
         }
     }
 }

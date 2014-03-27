@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="121eb770-eeaa-4dc5-a080-585973323e01" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" afterPath="$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/GeneticOperations.java" afterPath="$PROJECT_DIR$/src/ga/GeneticOperations.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/Main.java" afterPath="$PROJECT_DIR$/src/ga/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/Population.java" afterPath="$PROJECT_DIR$/src/ga/Population.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CollectiveAI.iws" />
@@ -61,23 +59,7 @@
       </breakpoint>
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" line="73" class="ga.GeneticAlgorithm" package="ga">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -90,7 +72,7 @@
       <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="44" selection-start="164" selection-end="164" vertical-scroll-proportion="0.25714287" vertical-offset="0" max-vertical-offset="2533">
+            <state line="11" column="48" selection-start="259" selection-end="259" vertical-scroll-proportion="0.22857143" vertical-offset="51" max-vertical-offset="2941">
               <folding />
             </state>
           </provider>
@@ -99,7 +81,7 @@
       <file leaf-file-name="Population.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ga/Population.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="0" selection-start="1907" selection-end="1907" vertical-scroll-proportion="0.0" vertical-offset="522" max-vertical-offset="1190">
+            <state line="63" column="0" selection-start="1907" selection-end="1907" vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="1224">
               <folding />
             </state>
           </provider>
@@ -108,7 +90,7 @@
       <file leaf-file-name="GeneticOperations.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ga/GeneticOperations.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2309" max-vertical-offset="3502">
+            <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2786" max-vertical-offset="3502">
               <folding />
             </state>
           </provider>
@@ -117,7 +99,7 @@
       <file leaf-file-name="GeneticAlgorithm.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="0" selection-start="2247" selection-end="2247" vertical-scroll-proportion="0.0" vertical-offset="1068" max-vertical-offset="4352">
+            <state line="253" column="41" selection-start="8728" selection-end="8728" vertical-scroll-proportion="0.0" vertical-offset="4002" max-vertical-offset="4539">
               <folding />
             </state>
           </provider>
@@ -139,8 +121,8 @@
         <option value="$PROJECT_DIR$/src/ga/main.java" />
         <option value="$PROJECT_DIR$/src/ga/test.java" />
         <option value="$PROJECT_DIR$/src/ga/Population.java" />
-        <option value="$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/ga/GeneticOperations.java" />
+        <option value="$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/ga/Main.java" />
       </list>
     </option>
@@ -177,6 +159,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -229,8 +213,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -242,12 +224,16 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../visualvm_137/bin/visualvm.exe" />
     <property name="LayoutCode.rearrangeEntriesJava" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
+    <property name="options.lastSelected" value="settings.github" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -311,19 +297,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -349,6 +322,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -453,7 +439,11 @@
       <created>1395868857241</created>
       <updated>1395868857241</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add elitism. Fixed fitness minimization. Some code refactor.">
+      <created>1395959828060</created>
+      <updated>1395959828060</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -484,7 +474,7 @@
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32937366" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19870411" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33045357" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40928724" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32937366" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -496,8 +486,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29157427" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33801296" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1970181" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2786177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -521,7 +511,8 @@
     </option>
     <MESSAGE value="Updated GA." />
     <MESSAGE value="Updated GA.&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated GA.&#10;" />
+    <MESSAGE value="Add elitism. Fixed fitness minimization. Some code refactor." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add elitism. Fixed fitness minimization. Some code refactor." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -531,6 +522,34 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="473" selection-end="473" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="2533">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/Population.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="0" selection-start="1907" selection-end="1907" vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="1224">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/GeneticOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2618" max-vertical-offset="3553">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="0" selection-start="2247" selection-end="2247" vertical-scroll-proportion="0.0" vertical-offset="1068" max-vertical-offset="4352">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="114" column="8" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.0" vertical-offset="1463" max-vertical-offset="2363">
@@ -719,13 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="0" selection-start="2247" selection-end="2247" vertical-scroll-proportion="0.0" vertical-offset="2882" max-vertical-offset="4352">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticOperations.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2309" max-vertical-offset="3502">
@@ -733,9 +745,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/java/lang/NumberFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="0" selection-start="1283" selection-end="1283" vertical-scroll-proportion="0.8081937" vertical-offset="263" max-vertical-offset="850">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="253" column="41" selection-start="8728" selection-end="8728" vertical-scroll-proportion="0.0" vertical-offset="4002" max-vertical-offset="4539">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="44" selection-start="164" selection-end="164" vertical-scroll-proportion="0.25714287" vertical-offset="0" max-vertical-offset="2533">
+        <state line="11" column="48" selection-start="259" selection-end="259" vertical-scroll-proportion="0.22857143" vertical-offset="51" max-vertical-offset="2941">
           <folding />
         </state>
       </provider>
