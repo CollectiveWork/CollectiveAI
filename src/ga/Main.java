@@ -11,7 +11,7 @@ import java.math.BigInteger;
 public class Main {
     public static void main(String[] args) {
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new RSA(32, 200, 100000, .8, .15, true, 16);
+        GeneticAlgorithm ga = new RSA(32, 200, 100000, .8, .08, true, 16);
         //GeneticAlgorithm ga = new EX6(2, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale
@@ -193,7 +193,7 @@ public class Main {
             BigInteger prod;
             if(p.isProbablePrime(8) && q.isProbablePrime(8)){
                 prod = p.multiply(q);
-                //System.out.println(p + " " + q + " " + prod);
+             //   System.out.println(p + " " + q + " " + prod);
                 if(prod.equals(n))
                     System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();

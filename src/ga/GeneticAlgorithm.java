@@ -85,6 +85,7 @@ public abstract class GeneticAlgorithm {
         int count_fit = 0;
 
 
+
         do {
             if(i==0){last_fittest = getFittest();}
 
@@ -92,20 +93,20 @@ public abstract class GeneticAlgorithm {
 
                 nr++;
 
-                if (um == 1) um = lum;
+                if (um == .99) um = lum;
 
                 if (getFitness(getFittest())==(getFitness(last_fittest)) ) count_fit++;
 
                 if (count_fit == 5 ) {
 
                     lum = um;
-                    um = 1;
+                    um = .99;
                     count_fit=0;
                 } else {
 
                     um += nr <= (max / 2) ? -vm : vm;
                 }
-                System.out.println(i + " " + getFitness(getFittest()) + " " + vm + " " + um + " " + count_fit);
+                System.out.println(i + " " + getFitness(getFittest()) + " " + vm + " " + um + " " + count_fit + " " + getParamsFromCromozom(getBinaryCromosom(getFittest())));
 
                 last_fittest = getFittest();
                 if (nr == max) nr = 0;
