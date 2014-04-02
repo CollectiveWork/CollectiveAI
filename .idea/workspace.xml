@@ -81,8 +81,10 @@
       <file leaf-file-name="GeneticAlgorithm.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="15" selection-start="2470" selection-end="2470" vertical-scroll-proportion="0.50086653" vertical-offset="1173" max-vertical-offset="4828">
-              <folding />
+            <state line="101" column="26" selection-start="2816" selection-end="2816" vertical-scroll-proportion="0.677643" vertical-offset="1326" max-vertical-offset="5202">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -413,7 +415,11 @@
       <created>1396469504843</created>
       <updated>1396469504843</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changes to Mutation Interval">
+      <created>1396470335180</created>
+      <updated>1396470335180</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -458,7 +464,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="Added Mutation Variation Interval" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Mutation Variation Interval" />
+    <MESSAGE value="Changes to Mutation Interval" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes to Mutation Interval" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -480,7 +487,9 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="67" column="33" selection-start="2072" selection-end="2072" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="4590">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -503,7 +512,9 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="209" column="36" selection-start="7231" selection-end="7231" vertical-scroll-proportion="0.0" vertical-offset="3489" max-vertical-offset="4539">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -532,8 +543,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="15" selection-start="2470" selection-end="2470" vertical-scroll-proportion="0.50086653" vertical-offset="1173" max-vertical-offset="4828">
-          <folding />
+        <state line="101" column="26" selection-start="2816" selection-end="2816" vertical-scroll-proportion="0.677643" vertical-offset="1326" max-vertical-offset="5202">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
