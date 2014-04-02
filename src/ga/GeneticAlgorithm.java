@@ -71,6 +71,9 @@ public abstract class GeneticAlgorithm {
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
         int i = 0;
         do {
+            if(i % 100 == 0){
+                System.out.println(i + " " + getFitness(getFittest()));
+            }
             fitness_population = getPopulationFitness(population);
             sortPopulationByFitness(population, fitness_population);
             normalized_population = getNormalizedFitnes();
