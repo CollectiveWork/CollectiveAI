@@ -9,7 +9,7 @@ import org.ejml.simple.SimpleMatrix;
 public class Main {
     public static void main(String[] args) {
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new EX1(8, 10, 100, .80, .125, true, 8);
+        GeneticAlgorithm ga = new EX7(40, 100, 1000, .75, .05, true, 8);
         //GeneticAlgorithm ga = new EX6(96, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale
@@ -21,7 +21,7 @@ public class Main {
             tmp = ga.start(true, "singlePointCrossover");
             fittest = ga.getFittest();
 
-            System.out.println("Cromosom: " + fittest);
+            System.out.println("Cromosom: " + ga.getParamsFromCromozom(ga.getBinaryCromosom(fittest)));
             System.out.println("Fitness: " + ga.getFitness(fittest));
 
         } catch (Exception e) {
@@ -163,6 +163,29 @@ public class Main {
             }
 
             return value;
+        }
+    }
+
+    public static class EX7 extends GeneticAlgorithm {
+        public EX7(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
+            super(m, n, it, uc, um, elitism, geneSize);
+        }
+
+        public EX7(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
+            super(m, n, it, uc, um, elitism, low, high);
+        }
+
+        public double fitness(SimpleMatrix chromosome) {
+            double x1 = chromosome.get(0);
+            double x2 = chromosome.get(1);
+            double x3 = chromosome.get(2);
+            double x4 = chromosome.get(3);
+            double x5 = chromosome.get(4);
+
+            if((x1+x2+x3 == 1) && (x1-x2+x4 == 1) && (x1+2*x2+x5 == 1) && (3*x1+x2+2*x3+x4 == 3))
+                return -1 * x1 + 3 * x2 + 2 * x3 - x4 + x5;
+            else
+                return 0;
         }
     }
 }
