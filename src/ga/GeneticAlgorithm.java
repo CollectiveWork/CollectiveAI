@@ -40,8 +40,7 @@ public abstract class GeneticAlgorithm {
         this.it = it;
         this.uc = uc;
         this.um = um;
-        this.vm = um/100;
-        System.out.println(""+vm);
+
         this.elitism = elitism;
         this.geneSize = geneSize;
         this.type = "binary";
@@ -53,8 +52,7 @@ public abstract class GeneticAlgorithm {
         this.it = it;
         this.uc = uc;
         this.um = um;
-        this.vm = um/100;
-        System.out.println(""+vm);
+
         this.elitism = elitism;
         this.low = low;
         this.high = high;
@@ -75,14 +73,20 @@ public abstract class GeneticAlgorithm {
         SimpleMatrix new_population;
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
 
-
+        int max = 6;
+        int nr = 0;
+        vm = um/max;
         int i = 0;
         do {
             if(i % 100 == 0){
-                System.out.println(i + " " + getFitness(getFittest()) );
+                nr++;
 
 
-                 um += i <= (it/2) ?  -vm  : vm ;
+
+                 um += nr <= (max/2) ?  -vm  : vm ;
+                System.out.println(i + " " + getFitness(getFittest()) + " " + vm + " " + um);
+
+                 if(nr==max)nr=0;
             }
             fitness_population = getPopulationFitness(population);
             sortPopulationByFitness(population, fitness_population);
