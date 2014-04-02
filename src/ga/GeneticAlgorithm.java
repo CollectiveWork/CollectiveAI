@@ -12,6 +12,7 @@ public abstract class GeneticAlgorithm {
     int it; // numarul de iteratii
     double uc; // probabilitatea de crossover
     double um; // probabilitatea de mutatie
+    double vm; // variatia mutatiei
     int geneSize;
     double low, high;
     boolean elitism;
@@ -39,6 +40,8 @@ public abstract class GeneticAlgorithm {
         this.it = it;
         this.uc = uc;
         this.um = um;
+        this.vm = um/100;
+        System.out.println(""+vm);
         this.elitism = elitism;
         this.geneSize = geneSize;
         this.type = "binary";
@@ -50,6 +53,8 @@ public abstract class GeneticAlgorithm {
         this.it = it;
         this.uc = uc;
         this.um = um;
+        this.vm = um/100;
+        System.out.println(""+vm);
         this.elitism = elitism;
         this.low = low;
         this.high = high;
@@ -69,10 +74,15 @@ public abstract class GeneticAlgorithm {
 
         SimpleMatrix new_population;
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
+
+
         int i = 0;
         do {
             if(i % 100 == 0){
-                System.out.println(i + " " + getFitness(getFittest()));
+                System.out.println(i + " " + getFitness(getFittest()) );
+
+
+                 um += i <= (it/2) ?  -vm  : vm ;
             }
             fitness_population = getPopulationFitness(population);
             sortPopulationByFitness(population, fitness_population);
