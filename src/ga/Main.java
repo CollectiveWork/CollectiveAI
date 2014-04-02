@@ -3,22 +3,24 @@ package ga;
 
 import org.ejml.simple.SimpleMatrix;
 
+import java.math.BigInteger;
+
 /**
  * Created by AndreiMadalin on 3/12/14.
  */
 public class Main {
     public static void main(String[] args) {
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new EX1(8, 10, 100, .80, .125, true, 8);
-        //GeneticAlgorithm ga = new EX6(96, 50, 150, .80, .002, true, 96);
+        GeneticAlgorithm ga = new RSA(32, 200, 10000, .8, .09, true, 16);
+        //GeneticAlgorithm ga = new EX6(2, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale
-       // GeneticAlgorithm ga = new EX3(2, 10, 1000, .80, .5, true, 0, 255);
+        //GeneticAlgorithm ga = new RSA(2, 250, 10000, .65, .5, true, 0, 10000);
 
         SimpleMatrix tmp;
         SimpleMatrix fittest;
         try {
-            tmp = ga.start(true, "singlePointCrossover");
+            tmp = ga.start(false, "singlePointCrossover");
             fittest = ga.getFittest();
 
             System.out.println("Cromosom: " + fittest);
@@ -163,6 +165,38 @@ public class Main {
             }
 
             return value;
+        }
+    }
+
+    public static class RSA extends GeneticAlgorithm{
+        public RSA(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
+            super(m, n, it, uc, um, elitism, geneSize);
+        }
+
+        public RSA(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
+            super(m, n, it, uc, um, elitism, low, high);
+        }
+
+        @Override
+        protected SimpleMatrix convertChromosome(SimpleMatrix chromosome) {
+            return chromosome;
+        }
+
+
+        public double fitness(SimpleMatrix chromosome) {
+
+            String binaryChromosome = getBinaryCromosom(chromosome);
+            BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize),2);
+            BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2*geneSize),2);
+            BigInteger n = BigInteger.valueOf(2244959);
+
+            BigInteger prod;
+                prod = p.multiply(q);
+                System.out.println(p + " " + q + " " + prod);
+                if(prod.equals(n))
+                    System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+
         }
     }
 }
