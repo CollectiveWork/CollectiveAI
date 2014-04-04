@@ -11,7 +11,7 @@ import java.math.BigInteger;
 public class Main {
     public static void main(String[] args) {
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new RSA(32, 200, 10000, .8, .09, true, 16);
+        GeneticAlgorithm ga = new RSA(32, 200, 10000, .8, .1, true, 16);
         //GeneticAlgorithm ga = new EX6(2, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale
@@ -53,6 +53,7 @@ public class Main {
         public EX2(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
             super(m, n, it, uc, um, elitism, low, high);
         }
+
         // ecuatia sferei
         // sum from i=1 to m of x(i)^2
         // x(i) is coded with 8 bits
@@ -160,7 +161,7 @@ public class Main {
             double value = 0.0;
 
             for (int i = 0; i < target.length(); i++) {
-                if(target.charAt(i) == binaryChromosome.charAt(i))
+                if (target.charAt(i) == binaryChromosome.charAt(i))
                     value++;
             }
 
@@ -168,7 +169,7 @@ public class Main {
         }
     }
 
-    public static class RSA extends GeneticAlgorithm{
+    public static class RSA extends GeneticAlgorithm {
         public RSA(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
             super(m, n, it, uc, um, elitism, geneSize);
         }
@@ -186,16 +187,20 @@ public class Main {
         public double fitness(SimpleMatrix chromosome) {
 
             String binaryChromosome = getBinaryCromosom(chromosome);
-            BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize),2);
-            BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2*geneSize),2);
+            BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
+            BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
             BigInteger n = BigInteger.valueOf(2244959);
 
             BigInteger prod;
+            if (p.isProbablePrime(8) && q.isProbablePrime(8)) {
                 prod = p.multiply(q);
                 System.out.println(p + " " + q + " " + prod);
-                if(prod.equals(n))
+                if (prod.equals(n))
                     System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+            } else {
+                return 100000000;
+            }
 
         }
     }
