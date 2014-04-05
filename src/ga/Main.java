@@ -3,25 +3,42 @@ package ga;
 
 import org.ejml.simple.SimpleMatrix;
 
+import java.lang.instrument.Instrumentation;
 import java.math.BigInteger;
 
 /**
  * Created by AndreiMadalin on 3/12/14.
  */
 public class Main {
+    static RSA rsa = new RSA();
+    static String message = "as";
+    static BigInteger ciphertext;
+    static BigInteger plaintext;
+    static BigInteger dick;
+
     public static void main(String[] args) {
+
+        rsa.Initialize(32);
+        dick = rsa.d;
+        plaintext = new BigInteger(message.getBytes());
+        ciphertext = rsa.encrypt(plaintext);
+
         // AG pe codificare pe alfabet binare
 
-        GeneticAlgorithm ga = new RSA(8, 2, 100000, .8, .08, true, 4);
-        //GeneticAlgorithm ga = new EX6(2, 50, 150, .80, .002, true, 96);
+
+
+        GeneticAlgorithm ga = new RSAAG(64, 200, 100000, .8, .05, true, 64);
+        //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
 
         // AG codificare pe numere reale
-        //GeneticAlgorithm ga = new RSA(2, 250, 10000, .65, .5, true, 0, 10000);
+        //GeneticAlgorithm ga = new ga.RSA(2, 250, 10000, .65, .5, true, 0, 10000);
+
+
 
         SimpleMatrix tmp;
         SimpleMatrix fittest;
         try {
-            tmp = ga.start(false, "singlePointCrossover");
+            tmp = ga.start(true, "singlePointCrossover");
             fittest = ga.getFittest();
 
             System.out.println("Cromosom: " + fittest);
@@ -170,12 +187,12 @@ public class Main {
         }
     }
 
-    public static class RSA extends GeneticAlgorithm {
-        public RSA(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
+    public static class RSAAG extends GeneticAlgorithm {
+        public RSAAG(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
             super(m, n, it, uc, um, elitism, geneSize);
         }
 
-        public RSA(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
+        public RSAAG(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
             super(m, n, it, uc, um, elitism, low, high);
         }
 
@@ -184,26 +201,70 @@ public class Main {
             return chromosome;
         }
 
-
-        public double fitness(SimpleMatrix chromosome) {
-
+        public double fitness(SimpleMatrix chromosome){
             String binaryChromosome = getBinaryCromosom(chromosome);
-            BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
-            BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
-            BigInteger n = BigInteger.valueOf(2244959);
+            rsa.d = new BigInteger(binaryChromosome, 2);
+            BigInteger decrypted = rsa.decrypt(ciphertext);
 
-            BigInteger prod;
 
-            if(p.isProbablePrime(8) && q.isProbablePrime(8)){
-                prod = p.multiply(q);
-             //   System.out.println(p + " " + q + " " + prod);
-                if(prod.equals(n))
-                    System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
-            }else{
-                return 1000000;
-            }
+            System.out.print("initial d: " + dick + "\t Current d: " + rsa.d + "\t");
 
+//            if(plaintext.equals(decrypted))
+//                System.out.println("REVOLUTIE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+
+            System.out.print("\t Initial biginteger: " + plaintext + "\t Current biginteger: " + decrypted);
+
+            return distance2(decrypted);
         }
+
+        public int distance1(BigInteger decrypted){
+            int dist = Math.abs(plaintext.subtract(decrypted).intValue());
+            System.out.println("\tDistance: " + dist);
+            return dist;
+        }
+        public int distance2(BigInteger decrypted){
+            int dist = 0;
+            String a = plaintext.toString();
+            String b = decrypted.toString();
+
+            String cur = "";
+            int length = a.length() < b.length() ? a.length() : b.length();
+            for (int i = 0; i < length; i++) {
+                if(a.charAt(i) == b.charAt(i))
+                {dist++;
+                 cur+=a.charAt(i);
+                }
+            }
+           if(cur!="") {
+               BigInteger curent = BigInteger.valueOf(Integer.parseInt(cur));
+            if(plaintext.equals(String.valueOf(new String(curent.toByteArray()))))
+                System.out.println("REVOLUTIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + String.valueOf(new String(curent.toByteArray())));
+
+            System.out.println("\t Dist: " + dist + " " + cur +  " "+String.valueOf(new String(curent.toByteArray())));
+           }else System.out.println("\t Dist: " + dist);
+            return dist;
+        }
+
+
+// P SI Q STYLE - NOT WORKING
+//        public double fitness(SimpleMatrix chromosome) {
+//            String binaryChromosome = getBinaryCromosom(chromosome);
+//            BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
+//            BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
+//            BigInteger n = BigInteger.valueOf(2244959);
+//
+//            BigInteger prod;
+//
+//            if(p.isProbablePrime(8) && q.isProbablePrime(8)){
+//                prod = p.multiply(q);
+//             //   System.out.println(p + " " + q + " " + prod);
+//                if(prod.equals(n))
+//                    System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+//            }else{
+//                return 1000000;
+//            }
+//        }
     }
 }

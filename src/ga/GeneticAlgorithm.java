@@ -104,10 +104,9 @@ public abstract class GeneticAlgorithm {
                     um = .99;
                     count_fit = 0;
                 } else {
-
                     um += nr <= (max / 2) ? -vm : vm;
                 }
-                System.out.println(i + " " + getFitness(getFittest()) + " " + vm + " " + um + " " + count_fit + " " + getParamsFromCromozom(getBinaryCromosom(getFittest())));
+                System.out.println(i + " " + getFitness(getFittest()));
 
                 last_fittest = getFittest();
                 if (nr == max) nr = 0;
@@ -138,7 +137,7 @@ public abstract class GeneticAlgorithm {
             else
                 new_population = GeneticOperations.mutation(new_population, um, high - low);
 
-            makePopulationPrime(population);
+           // makePopulationPrime(population);
 
             if (elitism) {
                 all_population.insertIntoThis(0, 0, population);
@@ -304,9 +303,13 @@ public abstract class GeneticAlgorithm {
     private SimpleMatrix makePopulationPrime(SimpleMatrix population){
         int m = population.numRows();
         int n = population.numCols();
-
+        SimpleMatrix tmp;
         for (int i = 0; i < n; i++) {
-            population.insertIntoThis(0, i, makeItPrime(population.extractVector(false, i)));
+            tmp = population.extractVector(false, i);
+            String string_chromosome = getBinaryCromosom(tmp);
+            if(string_chromosome.length() < 2*geneSize)
+                System.out.println("ok");
+            population.insertIntoThis(0, i, makeItPrime(tmp));
         }
 
         return population;
@@ -314,10 +317,9 @@ public abstract class GeneticAlgorithm {
 
 
     public SimpleMatrix makeItPrime(SimpleMatrix chromosome){
-        if(chromosome.numRows() < 2*geneSize)
-            System.out.println("ok");
-
         String string_chromosome = getBinaryCromosom(chromosome);
+        if(string_chromosome.length() < 2 * geneSize)
+            System.out.println("ok");
         String string_p = string_chromosome.substring(0, geneSize);
         String string_q = string_chromosome.substring(geneSize, 2*geneSize);
 
@@ -342,7 +344,7 @@ public abstract class GeneticAlgorithm {
         }
 
         if(binary_number.length() > size)
-            makeItPrime(binary);
+            binary = makeItPrime(binary);
 
         return binary;
     }
