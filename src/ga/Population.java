@@ -3,6 +3,7 @@ package ga;
 
 import org.ejml.simple.SimpleMatrix;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 /**
