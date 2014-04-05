@@ -11,7 +11,7 @@ import java.math.BigInteger;
 public class Main {
     public static void main(String[] args) {
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new RSA(32, 200, 100000, .8, .15, true, 16);
+        GeneticAlgorithm ga = new RSA(32, 400, 10000, .8, .4, true, 16);
         //GeneticAlgorithm ga = new EX6(2, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale

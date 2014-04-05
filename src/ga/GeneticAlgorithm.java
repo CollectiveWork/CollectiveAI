@@ -81,10 +81,8 @@ public abstract class GeneticAlgorithm {
             if(i % 100 == 0){
                 nr++;
 
-
-
                  um += nr <= (max/2) ?  -vm  : vm ;
-                System.out.println(i + " " + getFitness(getFittest()) + " " + vm + " " + um);
+                System.out.println(i + " " + getFitness(getFittest()));
 
                  if(nr==max)nr=0;
             }
