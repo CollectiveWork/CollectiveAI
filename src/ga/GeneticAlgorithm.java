@@ -3,7 +3,7 @@ package ga;
 
 import org.ejml.simple.SimpleMatrix;
 
-import java.lang.reflect.Array;
+import java.math.BigInteger;
 
 /**
  * Created by AndreiMadalin on 3/12/14.
@@ -85,9 +85,10 @@ public abstract class GeneticAlgorithm {
         int count_fit = 0;
 
 
-
         do {
-            if(i==0){last_fittest = getFittest();}
+            if (i == 0) {
+                last_fittest = getFittest();
+            }
 
             if (i % 100 == 0) {
 
@@ -95,13 +96,13 @@ public abstract class GeneticAlgorithm {
 
                 if (um == .99) um = lum;
 
-                if (getFitness(getFittest())==(getFitness(last_fittest)) ) count_fit++;
+                if (getFitness(getFittest()) == (getFitness(last_fittest))) count_fit++;
 
-                if (count_fit == 5 ) {
+                if (count_fit == 5) {
 
                     lum = um;
                     um = .99;
-                    count_fit=0;
+                    count_fit = 0;
                 } else {
 
                     um += nr <= (max / 2) ? -vm : vm;
@@ -137,6 +138,7 @@ public abstract class GeneticAlgorithm {
             else
                 new_population = GeneticOperations.mutation(new_population, um, high - low);
 
+            makePopulationPrime(population);
 
             if (elitism) {
                 all_population.insertIntoThis(0, 0, population);
@@ -297,5 +299,51 @@ public abstract class GeneticAlgorithm {
             sb.append((char) Integer.parseInt(ss[i], 2));
         }
         return sb.toString();
+    }
+
+    private SimpleMatrix makePopulationPrime(SimpleMatrix population){
+        int m = population.numRows();
+        int n = population.numCols();
+
+        for (int i = 0; i < n; i++) {
+            population.insertIntoThis(0, i, makeItPrime(population.extractVector(false, i)));
+        }
+
+        return population;
+    }
+
+
+    public SimpleMatrix makeItPrime(SimpleMatrix chromosome){
+        if(chromosome.numRows() < 2*geneSize)
+            System.out.println("ok");
+
+        String string_chromosome = getBinaryCromosom(chromosome);
+        String string_p = string_chromosome.substring(0, geneSize);
+        String string_q = string_chromosome.substring(geneSize, 2*geneSize);
+
+        SimpleMatrix p = BigInteger2SimpleMatrix(new BigInteger(string_p, 2).nextProbablePrime(), geneSize);
+        SimpleMatrix q = BigInteger2SimpleMatrix(new BigInteger(string_q, 2).nextProbablePrime(), geneSize);
+
+        chromosome.insertIntoThis(0,0, p);
+        chromosome.insertIntoThis(geneSize, 0, q);
+
+
+        return chromosome;
+    }
+
+
+    public SimpleMatrix BigInteger2SimpleMatrix(BigInteger number, int size){
+        String binary_number = number.toString(2);
+        SimpleMatrix binary = new SimpleMatrix(size, 1);
+        int i,j;
+
+        for (i = size - 1, j = binary_number.length() - 1; j >= 0 && i >= 0; i--, j--) {
+            binary.set(i, 0, binary_number.charAt(j) == '0' ? 0d : 1d);
+        }
+
+        if(binary_number.length() > size)
+            makeItPrime(binary);
+
+        return binary;
     }
 }
