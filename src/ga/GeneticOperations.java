@@ -3,6 +3,7 @@ package ga;
 
 import org.ejml.simple.SimpleMatrix;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -200,4 +201,5 @@ public class GeneticOperations {
 
         return a;
     }
+
 }

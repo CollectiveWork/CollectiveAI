@@ -3,6 +3,8 @@ package ga;
 
 import org.ejml.simple.SimpleMatrix;
 
+import java.math.BigInteger;
+
 /**
  * Created by AndreiMadalin on 3/12/14.
  */
@@ -60,8 +62,7 @@ public abstract class GeneticAlgorithm {
     }
 
     /**
-     *
-     * @param maximize set this true if you want the GA to maximize the fitness function ( set it false if you want to minimize it )
+     * @param maximize           set this true if you want the GA to maximize the fitness function ( set it false if you want to minimize it )
      * @param crossoverAlgorithm the crossover algorithm
      * @return the population at the end of iterations
      * @throws Exception
@@ -75,16 +76,40 @@ public abstract class GeneticAlgorithm {
 
         int max = 6;
         int nr = 0;
-        vm = um/max;
+        vm = um / max;
         int i = 0;
+
+        double lum = 0;
+
+        SimpleMatrix last_fittest = null;
+        int count_fit = 0;
+
+
         do {
-            if(i % 100 == 0){
+            if (i == 0) {
+                last_fittest = getFittest();
+            }
+
+            if (i % 100 == 0) {
+
                 nr++;
 
-                 um += nr <= (max/2) ?  -vm  : vm ;
-                System.out.println(i + " " + getFitness(getFittest()));
+                if (um == .99) um = lum;
 
-                 if(nr==max)nr=0;
+                if (getFitness(getFittest()) == (getFitness(last_fittest))) count_fit++;
+
+                if (count_fit == 5) {
+
+                    lum = um;
+                    um = .99;
+                    count_fit = 0;
+                } else {
+                    um += nr <= (max / 2) ? -vm : vm;
+                }
+                System.out.println(i + " " + getFitness(getFittest()) + " " + vm + " " + um + " " + count_fit + " " + getParamsFromCromozom(getBinaryCromosom(getFittest())));
+
+                last_fittest = getFittest();
+                if (nr == max) nr = 0;
             }
             fitness_population = getPopulationFitness(population);
             sortPopulationByFitness(population, fitness_population);
@@ -112,14 +137,15 @@ public abstract class GeneticAlgorithm {
             else
                 new_population = GeneticOperations.mutation(new_population, um, high - low);
 
+            makePopulationPrime(population);
 
-            if(elitism){
-                all_population.insertIntoThis(0,0,population);
+            if (elitism) {
+                all_population.insertIntoThis(0, 0, population);
                 all_population.insertIntoThis(0, population.numCols(), new_population);
                 sortPopulationByFitness(all_population, getPopulationFitness(all_population));
 
-                population = all_population.extractMatrix(0,population.numRows(),0,population.numCols());
-            }else{
+                population = all_population.extractMatrix(0, population.numRows(), 0, population.numCols());
+            } else {
                 population = new_population;
             }
             i++;
@@ -199,7 +225,7 @@ public abstract class GeneticAlgorithm {
         do {
             s = false;
             for (int i = 0; i < n - 1; i++) {
-                if ( maximize ? fitness_population.get(i) < fitness_population.get(i + 1) : fitness_population.get(i) > fitness_population.get(i + 1)) {
+                if (maximize ? fitness_population.get(i) < fitness_population.get(i + 1) : fitness_population.get(i) > fitness_population.get(i + 1)) {
                     temp1 = fitness_population.get(i);
                     fitness_population.set(i, fitness_population.get(i + 1));
                     fitness_population.set(i + 1, temp1);
@@ -264,13 +290,56 @@ public abstract class GeneticAlgorithm {
             return fitness(chromosome);
     }
 
-    public String binaryToString(SimpleMatrix chromosome){
+    public String binaryToString(SimpleMatrix chromosome) {
         String s = getBinaryCromosom(chromosome);
         String[] ss = s.split("(?<=\\G.{8})");
         StringBuilder sb = new StringBuilder();
-        for ( int i = 0; i < ss.length; i++ ) {
-            sb.append( (char)Integer.parseInt( ss[i], 2 ) );
+        for (int i = 0; i < ss.length; i++) {
+            sb.append((char) Integer.parseInt(ss[i], 2));
         }
         return sb.toString();
+    }
+
+    private SimpleMatrix makePopulationPrime(SimpleMatrix population){
+        int m = population.numRows();
+        int n = population.numCols();
+
+        for (int i = 0; i < n; i++) {
+            population.insertIntoThis(0, i, makeItPrime(population.extractVector(false, i)));
+        }
+
+        return population;
+    }
+
+
+    public SimpleMatrix makeItPrime(SimpleMatrix chromosome){
+        String string_chromosome = getBinaryCromosom(chromosome);
+        String string_p = string_chromosome.substring(0, geneSize);
+        String string_q = string_chromosome.substring(geneSize, 2*geneSize);
+
+        SimpleMatrix p = BigInteger2SimpleMatrix(new BigInteger(string_p, 2).nextProbablePrime(), geneSize);
+        SimpleMatrix q = BigInteger2SimpleMatrix(new BigInteger(string_q, 2).nextProbablePrime(), geneSize);
+
+        chromosome.insertIntoThis(0,0, p);
+        chromosome.insertIntoThis(geneSize, 0, q);
+
+
+        return chromosome;
+    }
+
+
+    public SimpleMatrix BigInteger2SimpleMatrix(BigInteger number, int size){
+        String binary_number = number.toString(2);
+        SimpleMatrix binary = new SimpleMatrix(size, 1);
+        int i,j;
+
+        for (i = size - 1, j = binary_number.length() - 1; j >= 0 && i >= 0; i--, j--) {
+            binary.set(i, 0, binary_number.charAt(j) == '0' ? 0d : 1d);
+        }
+
+        if(binary_number.length() > size)
+            binary = makeItPrime(binary);
+
+        return binary;
     }
 }
