@@ -10,44 +10,74 @@ import java.math.BigInteger;
  */
 public class Main {
     static RSA rsa = new RSA();
-    static String message = "as";
-    static BigInteger ciphertext;
-    static BigInteger plaintext;
+    static String message[] = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ");
+    static BigInteger ciphertext[];
+    static BigInteger plaintext[];
     static BigInteger dick;
 
     public static void main(String[] args) {
-        int bitLength = 16;
+        final int bitLength = 8;
 
         rsa.Initialize(bitLength);
         dick = rsa.d;
-        plaintext = new BigInteger(message.getBytes());
-        ciphertext = rsa.encrypt(plaintext);
+        plaintext = new BigInteger[message.length];
+        ciphertext = new BigInteger[message.length];
 
-        // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new RSAAG(2 * bitLength, 100, 1000000000, .8, .09, true, 2 * bitLength);
-        //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
+        for (int i = 0; i < message.length; i++) {
+            plaintext[i] = new BigInteger(message[i].getBytes());
+            ciphertext[i] = rsa.encrypt(plaintext[i]);
+        }
 
-        SimpleMatrix tmp;
-        SimpleMatrix fittest;
-        try {
-            tmp = ga.start(false, "singlePointCrossover");
-            fittest = ga.getFittest();
+        final SimpleMatrix bestPopulation = Population.init(2 * bitLength, 100);
 
-            System.out.println("Cromosom: " + fittest);
-            System.out.println("Fitness: " + ga.getFitness(fittest));
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 0; i < 5; i++) {
+
+            final RSA rsa_tmp = new RSA();
+
+            rsa_tmp.p = rsa.p;
+            rsa_tmp.q = rsa.q;
+            rsa_tmp.e = rsa.e;
+            rsa_tmp.n = rsa.n;
+            rsa_tmp.d = rsa.d;
+
+            final double mutations[] = {.005, .05, .2, .5, .9,.005, .05, .2, .5, .9};
+            final int finalI = i;
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+
+                    // AG pe codificare pe alfabet binare
+                    GeneticAlgorithm ga = new RSAAG(2 * bitLength, 100, 1000000000, .8, mutations[finalI], true, 2 * bitLength, finalI, bestPopulation, rsa_tmp);
+                    //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
+
+                    SimpleMatrix tmp;
+                    SimpleMatrix fittest;
+                    try {
+                        tmp = ga.start(false, "singlePointCrossover");
+                        fittest = ga.getFittest();
+
+                        System.out.println("Cromosom: " + fittest);
+                        System.out.println("Fitness: " + ga.getFitness(fittest));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            t.start();
         }
     }
 
     public static class EX1 extends GeneticAlgorithm {
-        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
-            super(m, n, it, uc, um, elitism, geneSize);
+        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
+            super(m, n, it, uc, um, elitism, geneSize, id, bestPopulation, rsa_tmp);
         }
 
-        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
-            super(m, n, it, uc, um, elitism, low, high);
+        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int low, int high, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
+            super(m, n, it, uc, um, elitism, low, high, id, bestPopulation, rsa_tmp);
         }
 
         public double fitness(SimpleMatrix chromosome) {
@@ -56,13 +86,10 @@ public class Main {
     }
 
     public static class RSAAG extends GeneticAlgorithm {
-        public RSAAG(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
-            super(m, n, it, uc, um, elitism, geneSize);
+        public RSAAG(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
+            super(m, n, it, uc, um, elitism, geneSize, id, bestPopulation, rsa_tmp);
         }
 
-        public RSAAG(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
-            super(m, n, it, uc, um, elitism, low, high);
-        }
 
         @Override
         protected SimpleMatrix convertChromosome(SimpleMatrix chromosome) {
@@ -70,47 +97,55 @@ public class Main {
         }
 
         double last_distance = 1000000000d;
-        public double fitness(SimpleMatrix chromosome) {
-            String binaryChromosome = getBinaryCromosom(chromosome);
-            rsa.d = new BigInteger(binaryChromosome, 2);
-            BigInteger decrypted = rsa.decrypt(ciphertext);
+        BigInteger decrypted[] = new BigInteger[message.length];
 
-            double distance = leeDistance(decrypted);
+        synchronized public double fitness(SimpleMatrix chromosome) {
+            String binaryChromosome = getBinaryCromosom(chromosome);
+            rsa_tmp.d = new BigInteger(binaryChromosome, 2);
+            double distance = 0d;
+
+            for (int i = 0; i < message.length; i++) {
+                decrypted[i] = rsa_tmp.decrypt(ciphertext[i]);
+                distance += hammingDistance(plaintext[i], decrypted[i]);
+            }
+
+            if (dick.equals(rsa_tmp.d))
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
             if (distance < last_distance) {
                 last_distance = distance;
                 if (plaintext.equals(decrypted))
                     System.out.println("REVOLUTIE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-                System.out.println("initial d: " + dick + "\t Current d: " + rsa.d + "\t Initial biginteger: " + plaintext + "\t Current biginteger: " + decrypted + "\t Dist: " + distance);
+                System.out.println("id:" + id + "\tinitial d: " + dick + "\t Current d: " + rsa_tmp.d + "\t Dist: " + distance + " p&q:" + rsa_tmp.p + " " + rsa_tmp.q + " e:" + rsa_tmp.e + " d:" + dick);
+                System.out.println("nicusor da pula " + new BigInteger(binaryChromosome, 2) + " " + binaryChromosome + " " + rsa_tmp.d);
             }
 
             return distance;
         }
 
-        public int distance1(BigInteger decrypted) {
-            int dist = Math.abs(plaintext.subtract(decrypted).intValue());
-            System.out.println("\tDistance: " + dist);
-            return dist;
+        public double distance1(BigInteger plaintext, BigInteger decrypted) {
+            return Math.abs(plaintext.subtract(decrypted).doubleValue());
         }
 
-        public double euclidianDistance(BigInteger decrypted) {
-            int dist = 0;
+        public double euclidianDistance(BigInteger plaintext, BigInteger decrypted) {
+            double dist = 0;
             String a = plaintext.toString();
             String b = decrypted.toString();
 
             if (a.length() != b.length()) {
-                return 1000000000;
+                return message.length * 1000000000;
             }
 
             for (int i = 0; i < a.length(); i++) {
-                dist += Math.pow(Character.getNumericValue(a.charAt(i)) - Character.getNumericValue(b.charAt(i)),2);
+                dist += Math.pow(Character.getNumericValue(a.charAt(i)) - Character.getNumericValue(b.charAt(i)), 2);
             }
 
             return Math.sqrt(dist);
         }
 
-        public double leeDistance(BigInteger decrypted){
-            int dist = 0;
+        public double leeDistance(BigInteger decrypted) {
+            double dist = 0;
             String a = plaintext.toString();
             String b = decrypted.toString();
 
@@ -128,8 +163,46 @@ public class Main {
             return dist;
         }
 
-        public int distance3(BigInteger decrypted) {
-            int dist = 0;
+        public double canberraDistance(BigInteger decrypted) {
+            double dist = 0;
+            String a = plaintext.toString();
+            String b = decrypted.toString();
+
+            if (a.length() != b.length()) {
+                return 0;
+            }
+
+            double c1, c2;
+            for (int i = 0; i < a.length(); i++) {
+                c1 = Character.getNumericValue(a.charAt(i));
+                c2 = Character.getNumericValue(b.charAt(i));
+                dist += Math.abs(c1 - c2) / (Math.abs(c1) + Math.abs(c2));
+            }
+
+            return dist;
+        }
+
+        // minimize
+        public double hammingDistance(BigInteger plaintext,BigInteger decrypted) {
+            double dist = 0;
+            String a = plaintext.toString();
+            String b = decrypted.toString();
+
+            if (a.length() != b.length()) {
+                return 1000000000;
+            }
+
+            for (int i = 0; i < a.length(); i++) {
+                if (a.charAt(i) != b.charAt(i))
+                    dist += 1;
+            }
+
+            return dist;
+        }
+
+
+        public double distance3(BigInteger decrypted) {
+            double dist = 0;
             String a = plaintext.toString();
             String b = decrypted.toString();
 

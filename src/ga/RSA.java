@@ -45,6 +45,26 @@ public class RSA {
         d = e.modInverse(PhiN);
 
     }
+    public void InitializeParams(BigInteger p,BigInteger q,BigInteger e,BigInteger d) {
+
+
+        this.p=p;
+        this.q=q;
+
+
+        /* Step 2: Calculate n = p.q */
+        n = p.multiply(q);
+
+        /* Step 3: Calculate ø(n) = (p - 1).(q - 1) */
+        PhiN = p.subtract(BigInteger.valueOf(1));
+        PhiN = PhiN.multiply(q.subtract(BigInteger.valueOf(1)));
+
+        /* Step 4: Find e such that gcd(e, ø(n)) = 1 ; 1 < e < ø(n) */
+       this.e=e;
+        /* Step 5: Calculate d such that e.d = 1 (mod ø(n)) */
+       this.d=d;
+
+    }
 
     public String publickey() {
         return e + " " + n;
@@ -73,26 +93,55 @@ public class RSA {
         RSA rsa = new RSA();
         rsa.Initialize(16);
 
-        String plaintext;
+        rsa.p=BigInteger.valueOf(46573);
+        rsa.q=BigInteger.valueOf(50707);
+        rsa.n=rsa.p.multiply(rsa.q);
+       // System.out.println("n = "+ rsa.n.toString() + " "+ rsa.p.multiply(rsa.q));
+        rsa.e=new BigInteger("3543127543",10);
+        rsa.d=BigInteger.valueOf(1033873687);
 
-        System.out.println("pubkey: " + rsa.publickey());
+
+       String plaintext = "as";
+       String plaintext2 = "ta";
+        //System.out.println("pubkey: " + rsa.publickey());
         // System.out.println("pubbkey "+rsa.publickey());
         // System.out.println("gpub: " + rsa.getpublickey(rsa.publickey())[0]);
-        System.out.println("plaintext :");
-        plaintext = sc.nextLine();
+      //  System.out.println("plaintext :");
+       // plaintext = sc.nextLine();
 
         BigInteger bplaintext;
         bplaintext = new BigInteger(plaintext.getBytes());
 
+        BigInteger bplaintext2;
+        bplaintext2 = new BigInteger(plaintext2.getBytes());
+
         BigInteger bciphertext = rsa.encrypt(bplaintext);
+        BigInteger bciphertext2 = rsa.encrypt(bplaintext2);
 
         System.out.println("plaintext : " + bplaintext.toString());
         System.out.println("ciphertext : " + bciphertext.toString());
 
+        System.out.println("plaintext2 : " + bplaintext2.toString());
+        System.out.println("ciphertext2 : " + bciphertext2.toString());
+
+        rsa.d=new BigInteger("2214613603",10);
         bplaintext = rsa.decrypt(bciphertext);
+        bplaintext2 = rsa.decrypt(bciphertext2);
 
         System.out.println("decrypted : " + bplaintext.toString());
         System.out.println(String.valueOf(new String(bplaintext.toByteArray())));
+
+        System.out.println("decrypted2 : " + bplaintext2.toString());
+        System.out.println(String.valueOf(new String(bplaintext2.toByteArray())));
+
+
+
+
+
+
+
+
+
     }
 
 }

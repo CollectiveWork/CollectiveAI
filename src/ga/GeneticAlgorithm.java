@@ -24,7 +24,9 @@ public abstract class GeneticAlgorithm {
     SimpleMatrix fitness_population; // fitnesul fiecarui cromozom
     SimpleMatrix normalized_population; // fitnesul fiecarui cromozom, normalizat
     SimpleMatrix cumulative_population; //
-
+    int id;
+    SimpleMatrix bestPopulation;
+    RSA rsa_tmp;
     public GeneticAlgorithm() {
 
     }
@@ -36,7 +38,7 @@ public abstract class GeneticAlgorithm {
      * @param uc // probabilitatea de crossover
      * @param um // probabilitatea de mutatie
      */
-    public GeneticAlgorithm(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
+    public GeneticAlgorithm(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation,RSA rsa_tmp) {
         this.m = m;
         this.n = n;
         this.it = it;
@@ -46,9 +48,12 @@ public abstract class GeneticAlgorithm {
         this.elitism = elitism;
         this.geneSize = geneSize;
         this.type = "binary";
+        this.id=id;
+        this.bestPopulation=bestPopulation;
+        this.rsa_tmp=rsa_tmp;
     }
 
-    public GeneticAlgorithm(int m, int n, int it, double uc, double um, boolean elitism, double low, double high) {
+    public GeneticAlgorithm(int m, int n, int it, double uc, double um, boolean elitism, double low, double high, int id, SimpleMatrix bestPopulation,RSA rsa_tmp) {
         this.m = m;
         this.n = n;
         this.it = it;
@@ -59,6 +64,9 @@ public abstract class GeneticAlgorithm {
         this.low = low;
         this.high = high;
         this.type = "real";
+        this.id=id;
+        this.bestPopulation=bestPopulation;
+        this.rsa_tmp=rsa_tmp;
     }
 
     /**
@@ -67,7 +75,7 @@ public abstract class GeneticAlgorithm {
      * @return the population at the end of iterations
      * @throws Exception
      */
-    public SimpleMatrix start(boolean maximize, String crossoverAlgorithm) throws Exception {
+    synchronized public SimpleMatrix start(boolean maximize, String crossoverAlgorithm) throws Exception {
         population = init();
         this.maximize = maximize;
 
@@ -106,7 +114,7 @@ public abstract class GeneticAlgorithm {
                 } else {
                     um += nr <= (max / 2) ? -vm : vm;
                 }
-                System.out.println(i + " " + getFitness(getFittest()));
+                System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
 
                 last_fittest = getFittest();
                 if (nr == max) nr = 0;
@@ -148,6 +156,17 @@ public abstract class GeneticAlgorithm {
             } else {
                 population = new_population;
             }
+
+            if(bestPopulation!=null&&i%100==0){
+
+                all_population.insertIntoThis(0, 0, population);
+                all_population.insertIntoThis(0, population.numCols(), bestPopulation);
+                sortPopulationByFitness(all_population, getPopulationFitness(all_population));
+
+                population = all_population.extractMatrix(0, population.numRows(), 0, population.numCols());
+                bestPopulation.set(population);
+            }
+
             i++;
             //System.out.println(binaryToString(getFittest()));
         } while (i < it);
