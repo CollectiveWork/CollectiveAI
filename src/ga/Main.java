@@ -24,7 +24,7 @@ public class Main {
         ciphertext = rsa.encrypt(plaintext);
 
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new RSAAG(2 * bitLength, 2, 1000000000, .8, .5, true, 2 * bitLength);
+        GeneticAlgorithm ga = new RSAAG(2 * bitLength, 100, 1000000000, .8, .09, true, 2 * bitLength);
         //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
 
         SimpleMatrix tmp;
@@ -75,7 +75,7 @@ public class Main {
             rsa.d = new BigInteger(binaryChromosome, 2);
             BigInteger decrypted = rsa.decrypt(ciphertext);
 
-            double distance = distance2(decrypted);
+            double distance = leeDistance(decrypted);
             if (distance < last_distance) {
                 last_distance = distance;
                 if (plaintext.equals(decrypted))
@@ -93,7 +93,7 @@ public class Main {
             return dist;
         }
 
-        public double distance2(BigInteger decrypted) {
+        public double euclidianDistance(BigInteger decrypted) {
             int dist = 0;
             String a = plaintext.toString();
             String b = decrypted.toString();
@@ -107,6 +107,25 @@ public class Main {
             }
 
             return Math.sqrt(dist);
+        }
+
+        public double leeDistance(BigInteger decrypted){
+            int dist = 0;
+            String a = plaintext.toString();
+            String b = decrypted.toString();
+
+            if (a.length() != b.length()) {
+                return 1000000000;
+            }
+
+            int tmpA, tmpB, q = 10;
+            for (int i = 0; i < a.length(); i++) {
+                tmpA = Math.abs(Character.getNumericValue(a.charAt(i)) - Character.getNumericValue(b.charAt(i)));
+                tmpB = q - tmpA;
+                dist += tmpA < tmpB ? tmpA : tmpB;
+            }
+
+            return dist;
         }
 
         public int distance3(BigInteger decrypted) {
