@@ -95,7 +95,6 @@ public class RSA {
 
         rsa.p=BigInteger.valueOf(46573);
         rsa.q=BigInteger.valueOf(50707);
-        rsa.n=rsa.p.multiply(rsa.q);
        // System.out.println("n = "+ rsa.n.toString() + " "+ rsa.p.multiply(rsa.q));
         rsa.e=new BigInteger("3543127543",10);
         rsa.d=BigInteger.valueOf(1033873687);

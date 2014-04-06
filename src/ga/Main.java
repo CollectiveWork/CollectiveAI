@@ -10,13 +10,14 @@ import java.math.BigInteger;
  */
 public class Main {
     static RSA rsa = new RSA();
-    static String message[] = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ");
+    static String message[] = "ana are mer sip ere".split(" ");
+    //static String message[] = "a b c d e f g h i j k l m n".split(" ");
     static BigInteger ciphertext[];
     static BigInteger plaintext[];
     static BigInteger dick;
 
     public static void main(String[] args) {
-        final int bitLength = 8;
+        final int bitLength = 32;
 
         rsa.Initialize(bitLength);
         dick = rsa.d;
@@ -28,7 +29,7 @@ public class Main {
             ciphertext[i] = rsa.encrypt(plaintext[i]);
         }
 
-        final SimpleMatrix bestPopulation = Population.init(2 * bitLength, 100);
+        final SimpleMatrix bestPopulation = Population.init(2 * bitLength, 200);
 
 
         for (int i = 0; i < 5; i++) {
@@ -49,7 +50,7 @@ public class Main {
 
 
                     // AG pe codificare pe alfabet binare
-                    GeneticAlgorithm ga = new RSAAG(2 * bitLength, 100, 1000000000, .8, mutations[finalI], true, 2 * bitLength, finalI, bestPopulation, rsa_tmp);
+                    GeneticAlgorithm ga = new RSAAG(2 * bitLength, 200, 1000000000, .8, mutations[finalI], true, 2 * bitLength, finalI, bestPopulation, rsa_tmp);
                     //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
 
                     SimpleMatrix tmp;
@@ -109,16 +110,18 @@ public class Main {
                 distance += hammingDistance(plaintext[i], decrypted[i]);
             }
 
-            if (dick.equals(rsa_tmp.d))
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
             if (distance < last_distance) {
                 last_distance = distance;
                 if (plaintext.equals(decrypted))
                     System.out.println("REVOLUTIE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
                 System.out.println("id:" + id + "\tinitial d: " + dick + "\t Current d: " + rsa_tmp.d + "\t Dist: " + distance + " p&q:" + rsa_tmp.p + " " + rsa_tmp.q + " e:" + rsa_tmp.e + " d:" + dick);
-                System.out.println("nicusor da pula " + new BigInteger(binaryChromosome, 2) + " " + binaryChromosome + " " + rsa_tmp.d);
+            }
+
+            if (dick.equals(rsa_tmp.d)){
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println("id:" + id + "\tinitial d: " + dick + "\t Current d: " + rsa_tmp.d + "\t Dist: " + distance + " p&q:" + rsa_tmp.p + " " + rsa_tmp.q + " e:" + rsa_tmp.e + " d:" + dick);
+                System.exit(0);
             }
 
             return distance;

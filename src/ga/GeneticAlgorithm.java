@@ -114,7 +114,7 @@ public abstract class GeneticAlgorithm {
                 } else {
                     um += nr <= (max / 2) ? -vm : vm;
                 }
-                System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
+                //System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
 
                 last_fittest = getFittest();
                 if (nr == max) nr = 0;
