@@ -75,7 +75,7 @@ public abstract class GeneticAlgorithm {
      * @return the population at the end of iterations
      * @throws Exception
      */
-    synchronized public SimpleMatrix start(boolean maximize, String crossoverAlgorithm) throws Exception {
+    synchronized public void start(boolean maximize, String crossoverAlgorithm) throws Exception {
         population = init();
         this.maximize = maximize;
 
@@ -114,7 +114,7 @@ public abstract class GeneticAlgorithm {
                 } else {
                     um += nr <= (max / 2) ? -vm : vm;
                 }
-                //System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
+                System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
 
                 last_fittest = getFittest();
                 if (nr == max) nr = 0;
@@ -145,7 +145,7 @@ public abstract class GeneticAlgorithm {
             else
                 new_population = GeneticOperations.mutation(new_population, um, high - low);
 
-           // makePopulationPrime(population);
+            population = makePopulationPrime(population);
 
             if (elitism) {
                 all_population.insertIntoThis(0, 0, population);
@@ -169,15 +169,15 @@ public abstract class GeneticAlgorithm {
 
             i++;
             //System.out.println(binaryToString(getFittest()));
-        } while (i < it);
+        } while (true);
 
         // fix all the values after last mutaion
-        fitness_population = getPopulationFitness(population);
-        sortPopulationByFitness(population, fitness_population);
-        normalized_population = getNormalizedFitnes();
-        cumulative_population = getCumulativeFitnes();
-
-        return population;
+//        fitness_population = getPopulationFitness(population);
+//        sortPopulationByFitness(population, fitness_population);
+//        normalized_population = getNormalizedFitnes();
+//        cumulative_population = getCumulativeFitnes();
+//
+//        return population;
     }
 
     private SimpleMatrix init() {
@@ -326,7 +326,7 @@ public abstract class GeneticAlgorithm {
         for (int i = 0; i < n; i++) {
             tmp = population.extractVector(false, i);
             String string_chromosome = getBinaryCromosom(tmp);
-            if(string_chromosome.length() < 2*geneSize)
+            if(tmp.numRows() < 2*geneSize)
                 System.out.println("ok");
             population.insertIntoThis(0, i, makeItPrime(tmp));
         }
@@ -348,7 +348,6 @@ public abstract class GeneticAlgorithm {
         chromosome.insertIntoThis(0,0, p);
         chromosome.insertIntoThis(geneSize, 0, q);
 
-
         return chromosome;
     }
 
@@ -362,8 +361,9 @@ public abstract class GeneticAlgorithm {
             binary.set(i, 0, binary_number.charAt(j) == '0' ? 0d : 1d);
         }
 
-        if(binary_number.length() > size)
-            binary = makeItPrime(binary);
+        if(binary_number.length() > size){
+            binary = BigInteger2SimpleMatrix(new BigInteger(getBinaryCromosom(binary), 2).nextProbablePrime(), size);
+        }
 
         return binary;
     }

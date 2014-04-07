@@ -10,14 +10,19 @@ import java.math.BigInteger;
  */
 public class Main {
     static RSA rsa = new RSA();
-    static String message[] = "ana are mer sip ere".split(" ");
+    static String message[] = "an".split(" ");
     //static String message[] = "a b c d e f g h i j k l m n".split(" ");
     static BigInteger ciphertext[];
     static BigInteger plaintext[];
     static BigInteger dick;
+    static BigInteger P, Q;
 
     public static void main(String[] args) {
-        final int bitLength = 32;
+        final int bitLength = 16;
+        final int chromosomeLength = bitLength * 2;
+        final int params = 2;
+        int threads = 5;
+        final int pop_size = 50;
 
         rsa.Initialize(bitLength);
         dick = rsa.d;
@@ -28,18 +33,18 @@ public class Main {
             plaintext[i] = new BigInteger(message[i].getBytes());
             ciphertext[i] = rsa.encrypt(plaintext[i]);
         }
+        P = rsa.p;
+        Q = rsa.q;
 
-        final SimpleMatrix bestPopulation = Population.init(2 * bitLength, 200);
-
-
-        for (int i = 0; i < 5; i++) {
+        final SimpleMatrix finalBestPopulation = Population.init(params * chromosomeLength, pop_size);
+        for (int i = 0; i < threads; i++) {
 
             final RSA rsa_tmp = new RSA();
 
             rsa_tmp.p = rsa.p;
             rsa_tmp.q = rsa.q;
-            rsa_tmp.e = rsa.e;
             rsa_tmp.n = rsa.n;
+            rsa_tmp.e = rsa.e;
             rsa_tmp.d = rsa.d;
 
             final double mutations[] = {.005, .05, .2, .5, .9,.005, .05, .2, .5, .9};
@@ -50,13 +55,13 @@ public class Main {
 
 
                     // AG pe codificare pe alfabet binare
-                    GeneticAlgorithm ga = new RSAAG(2 * bitLength, 200, 1000000000, .8, mutations[finalI], true, 2 * bitLength, finalI, bestPopulation, rsa_tmp);
+                    GeneticAlgorithm ga = new RSAPQ(params * chromosomeLength, pop_size, 1000000000, .8, mutations[finalI], true, chromosomeLength, finalI, finalBestPopulation, rsa_tmp);
                     //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
 
                     SimpleMatrix tmp;
                     SimpleMatrix fittest;
                     try {
-                        tmp = ga.start(false, "singlePointCrossover");
+                        ga.start(false, "singlePointCrossover");
                         fittest = ga.getFittest();
 
                         System.out.println("Cromosom: " + fittest);
@@ -86,6 +91,41 @@ public class Main {
         }
     }
 
+    public static class RSAPQ extends GeneticAlgorithm {
+        public RSAPQ(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
+            super(m, n, it, uc, um, elitism, geneSize, id, bestPopulation, rsa_tmp);
+        }
+
+        @Override
+        protected SimpleMatrix convertChromosome(SimpleMatrix chromosome) {
+            return chromosome;
+        }
+
+        synchronized public double fitness(SimpleMatrix chromosome) {
+            String binaryChromosome = getBinaryCromosom(chromosome);
+            BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
+            BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
+            BigInteger n = rsa.n;
+            double distance = 0;
+            BigInteger prod;
+
+            if(p.isProbablePrime(8) && q.isProbablePrime(8)){
+                prod = p.multiply(q);
+                System.out.println("P: " + p + " Q:" + q + " Prod: " + prod + " Target:" + n);
+                if(prod.equals(n)){
+                    System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(rsa.p + " " + rsa.q);
+                    System.out.println(p + " " + q);
+                }
+
+                //distance = hammingDistance(prod, n);
+                return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+            }else{
+                return 1000000000;
+            }
+        }
+    }
+
     public static class RSAAG extends GeneticAlgorithm {
         public RSAAG(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
             super(m, n, it, uc, um, elitism, geneSize, id, bestPopulation, rsa_tmp);
@@ -97,7 +137,7 @@ public class Main {
             return chromosome;
         }
 
-        double last_distance = 1000000000d;
+        double last_distance = message.length * 100000000d;
         BigInteger decrypted[] = new BigInteger[message.length];
 
         synchronized public double fitness(SimpleMatrix chromosome) {
@@ -137,7 +177,7 @@ public class Main {
             String b = decrypted.toString();
 
             if (a.length() != b.length()) {
-                return message.length * 1000000000;
+                return message.length * 1000000000d;
             }
 
             for (int i = 0; i < a.length(); i++) {
@@ -192,7 +232,7 @@ public class Main {
             String b = decrypted.toString();
 
             if (a.length() != b.length()) {
-                return 1000000000;
+                return 100000000d;
             }
 
             for (int i = 0; i < a.length(); i++) {
@@ -226,26 +266,5 @@ public class Main {
             } else System.out.println("\t Dist: " + dist);
             return dist;
         }
-
-
-// P SI Q STYLE - NOT WORKING
-//        public double fitness(SimpleMatrix chromosome) {
-//            String binaryChromosome = getBinaryCromosom(chromosome);
-//            BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
-//            BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
-//            BigInteger n = BigInteger.valueOf(2244959);
-//
-//            BigInteger prod;
-//
-//            if(p.isProbablePrime(8) && q.isProbablePrime(8)){
-//                prod = p.multiply(q);
-//             //   System.out.println(p + " " + q + " " + prod);
-//                if(prod.equals(n))
-//                    System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//                return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
-//            }else{
-//                return 1000000;
-//            }
-//        }
     }
 }
