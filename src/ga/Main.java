@@ -18,11 +18,11 @@ public class Main {
     static BigInteger P, Q;
 
     public static void main(String[] args) {
-        final int bitLength = 16;
-        final int chromosomeLength = bitLength * 2;
+        final int bitLength = 32;
+        final int chromosomeLength = bitLength;
         final int params = 2;
         int threads = 5;
-        final int pop_size = 50;
+        final int pop_size = 300;
 
         rsa.Initialize(bitLength);
         dick = rsa.d;
@@ -47,7 +47,7 @@ public class Main {
             rsa_tmp.e = rsa.e;
             rsa_tmp.d = rsa.d;
 
-            final double mutations[] = {.005, .05, .2, .5, .9,.005, .05, .2, .5, .9};
+            final double mutations[] = {.005, .05, .3, .5, .9,.005, .05, .2, .5, .9};
             final int finalI = i;
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -55,7 +55,7 @@ public class Main {
 
 
                     // AG pe codificare pe alfabet binare
-                    GeneticAlgorithm ga = new RSAPQ(params * chromosomeLength, pop_size, 1000000000, .8, mutations[finalI], true, chromosomeLength, finalI, finalBestPopulation, rsa_tmp);
+                    GeneticAlgorithm ga = new RSAPQ(params * chromosomeLength, pop_size, 1000000000, .8, mutations[finalI], true, chromosomeLength, finalI, null, rsa_tmp);
                     //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
 
                     SimpleMatrix tmp;
@@ -109,20 +109,20 @@ public class Main {
             double distance = 0;
             BigInteger prod;
 
-            if(p.isProbablePrime(8) && q.isProbablePrime(8)){
-                prod = p.multiply(q);
-                System.out.println("P: " + p + " Q:" + q + " Prod: " + prod + " Target:" + n);
-                if(prod.equals(n)){
-                    System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println(rsa.p + " " + rsa.q);
-                    System.out.println(p + " " + q);
-                }
 
-                //distance = hammingDistance(prod, n);
-                return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
-            }else{
-                return 1000000000;
+            prod = p.multiply(q);
+            System.out.println("P: " + p + " Q:" + q + " Prod: " + prod + " Target: n: " + n + " p: " + rsa.p + " q: " + rsa.q);
+            if(prod.equals(n)){
+                System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println(rsa.p + " " + rsa.q);
+                System.out.println(p + " " + q);
+                System.out.println("P: " + p + " Q:" + q + " Prod: " + prod + " Target:" + n);
+                System.exit(0);
             }
+
+            //distance = hammingDistance(prod, n);
+            return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+
         }
     }
 

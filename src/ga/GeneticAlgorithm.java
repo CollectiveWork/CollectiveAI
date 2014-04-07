@@ -77,6 +77,7 @@ public abstract class GeneticAlgorithm {
      */
     synchronized public void start(boolean maximize, String crossoverAlgorithm) throws Exception {
         population = init();
+
         this.maximize = maximize;
 
         SimpleMatrix new_population;
@@ -145,7 +146,6 @@ public abstract class GeneticAlgorithm {
             else
                 new_population = GeneticOperations.mutation(new_population, um, high - low);
 
-            population = makePopulationPrime(population);
 
             if (elitism) {
                 all_population.insertIntoThis(0, 0, population);
@@ -158,7 +158,6 @@ public abstract class GeneticAlgorithm {
             }
 
             if(bestPopulation!=null&&i%100==0){
-
                 all_population.insertIntoThis(0, 0, population);
                 all_population.insertIntoThis(0, population.numCols(), bestPopulation);
                 sortPopulationByFitness(all_population, getPopulationFitness(all_population));
@@ -166,6 +165,8 @@ public abstract class GeneticAlgorithm {
                 population = all_population.extractMatrix(0, population.numRows(), 0, population.numCols());
                 bestPopulation.set(population);
             }
+
+
 
             i++;
             //System.out.println(binaryToString(getFittest()));
@@ -188,6 +189,7 @@ public abstract class GeneticAlgorithm {
     }
 
     private SimpleMatrix getPopulationFitness(SimpleMatrix population) {
+        population = makePopulationPrime(population);
         if (type.equals("binary"))
             return getBinaryPopulationFitness(population);
         else
