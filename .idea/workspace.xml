@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="121eb770-eeaa-4dc5-a080-585973323e01" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ga/Classifier.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ga/windows/MainWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" afterPath="$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ga/Main.java" afterPath="$PROJECT_DIR$/src/ga/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CollectiveAI.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,8 +74,30 @@
       <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="12" selection-start="6446" selection-end="6446" vertical-scroll-proportion="0.7070064" vertical-offset="2906" max-vertical-offset="3349">
+            <state line="207" column="56" selection-start="7295" selection-end="7295" vertical-scroll-proportion="0.642732" vertical-offset="3152" max-vertical-offset="3740">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Classifier.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ga/Classifier.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="0" selection-start="310" selection-end="310" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainWindow.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ga/windows/MainWindow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="28" selection-start="727" selection-end="727" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="799">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,7 +114,7 @@
       <file leaf-file-name="GeneticOperations.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ga/GeneticOperations.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2618" max-vertical-offset="3553">
+            <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2618" max-vertical-offset="3502">
               <folding />
             </state>
           </provider>
@@ -97,8 +123,11 @@
       <file leaf-file-name="GeneticAlgorithm.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="14" selection-start="4002" selection-end="4002" vertical-scroll-proportion="0.0" vertical-offset="1551" max-vertical-offset="4539">
-              <folding />
+            <state line="32" column="45" selection-start="829" selection-end="829" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="4675">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#864#865#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -121,6 +150,8 @@
         <option value="$PROJECT_DIR$/src/ga/Population.java" />
         <option value="$PROJECT_DIR$/src/ga/GeneticOperations.java" />
         <option value="$PROJECT_DIR$/src/ga/GeneticAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/ga/windows/MainWindow.java" />
+        <option value="$PROJECT_DIR$/src/ga/Classifier.java" />
         <option value="$PROJECT_DIR$/src/ga/Main.java" />
       </list>
     </option>
@@ -128,8 +159,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -157,7 +188,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -204,13 +235,35 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ga" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="windows" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CollectiveAI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CollectiveAI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -296,19 +349,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -334,6 +374,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -471,7 +524,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -490,8 +543,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19637462" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44625407" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.094249204" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35529158" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -529,8 +582,10 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="43" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="2958">
-          <folding />
+        <state line="184" column="12" selection-start="6446" selection-end="6446" vertical-scroll-proportion="0.0" vertical-offset="2906" max-vertical-offset="3349">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -551,14 +606,52 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="110" column="14" selection-start="4002" selection-end="4002" vertical-scroll-proportion="0.0" vertical-offset="1551" max-vertical-offset="4539">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="43" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="2958">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/Population.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="0" selection-start="1907" selection-end="1907" vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="1224">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/GeneticOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2618" max-vertical-offset="3553">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="14" selection-start="4002" selection-end="4002" vertical-scroll-proportion="0.0" vertical-offset="1551" max-vertical-offset="4539">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="13" selection-start="473" selection-end="473" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="2533">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -579,14 +672,19 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="73" column="0" selection-start="2247" selection-end="2247" vertical-scroll-proportion="0.0" vertical-offset="1068" max-vertical-offset="4352">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="114" column="8" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.0" vertical-offset="1463" max-vertical-offset="2363">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -607,14 +705,19 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="51" column="27" selection-start="1474" selection-end="1474" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="3774">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="114" column="8" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2363">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -635,14 +738,19 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="22" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="3774">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="109" column="9" selection-start="3350" selection-end="3350" vertical-scroll-proportion="0.0" vertical-offset="1463" max-vertical-offset="2363">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -663,14 +771,19 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="22" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="3774">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="2363">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -691,14 +804,19 @@
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="3774">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="35" selection-start="30" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="272">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -719,7 +837,9 @@
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="35" selection-start="30" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="272">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -769,6 +889,11 @@
         <state line="84" column="0" selection-start="2796" selection-end="2796" vertical-scroll-proportion="0.0" vertical-offset="842" max-vertical-offset="7140" />
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/java/lang/NumberFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="0" selection-start="1283" selection-end="1283" vertical-scroll-proportion="0.8081937" vertical-offset="263" max-vertical-offset="850" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticOperations.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="154" column="34" selection-start="5208" selection-end="5208" vertical-scroll-proportion="0.0" vertical-offset="2309" max-vertical-offset="3502">
@@ -776,22 +901,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_51/src.zip!/java/lang/NumberFormatException.java">
+    <entry file="file://$PROJECT_DIR$/src/ga/windows/MainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="0" selection-start="1283" selection-end="1283" vertical-scroll-proportion="0.8081937" vertical-offset="263" max-vertical-offset="850" />
+        <state line="26" column="28" selection-start="727" selection-end="727" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="799">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ga/Classifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="310" selection-end="310" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="14" selection-start="4002" selection-end="4002" vertical-scroll-proportion="0.0" vertical-offset="1551" max-vertical-offset="4539">
-          <folding />
+        <state line="32" column="45" selection-start="829" selection-end="829" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="4675">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ga/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="12" selection-start="6446" selection-end="6446" vertical-scroll-proportion="0.7070064" vertical-offset="2906" max-vertical-offset="3349">
-          <folding />
+        <state line="207" column="56" selection-start="7295" selection-end="7295" vertical-scroll-proportion="0.642732" vertical-offset="3152" max-vertical-offset="3740">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

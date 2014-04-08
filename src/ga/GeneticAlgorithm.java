@@ -3,6 +3,8 @@ package ga;
 
 import org.ejml.simple.SimpleMatrix;
 
+import javax.swing.*;
+
 /**
  * Created by AndreiMadalin on 3/12/14.
  */
@@ -22,8 +24,14 @@ public abstract class GeneticAlgorithm {
     SimpleMatrix normalized_population; // fitnesul fiecarui cromozom, normalizat
     SimpleMatrix cumulative_population; //
 
+    JTextArea output = null;
+
     public GeneticAlgorithm() {
 
+    }
+
+    public void setOutput(JTextArea output) {
+        this.output = output;
     }
 
     /**
