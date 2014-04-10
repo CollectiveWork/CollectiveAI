@@ -4,32 +4,30 @@ package ga;
 import ga.windows.MainWindow;
 import org.ejml.simple.SimpleMatrix;
 
-import java.io.IOException;
-
 /**
  * Created by AndreiMadalin on 3/12/14.
  */
 public class Main {
     public static void main(String[] args) {
 
-        MainWindow window = new MainWindow("AG",500,500);
+        GeneticAlgorithm ga = new Classification(1, 20, 1500, .8, .333, true, 0,255);
+        MainWindow window = new MainWindow("AG", 500, 500);
 
 
         // AG pe codificare pe alfabet binare
-        GeneticAlgorithm ga = new Classification(8, 100, 1000, .75, .05, true, 8);
+
         ga.setOutput(window.output);
         //GeneticAlgorithm ga = new EX6(96, 50, 150, .80, .002, true, 96);
 
         // AG codificare pe numere reale
-       // GeneticAlgorithm ga = new EX3(2, 10, 1000, .80, .5, true, 0, 255);
+        // GeneticAlgorithm ga = new EX3(2, 10, 1000, .80, .5, true, 0, 255);
 
         SimpleMatrix tmp;
         SimpleMatrix fittest;
         try {
             tmp = ga.start(false, "singlePointCrossover");
             fittest = ga.getFittest();
-
-            System.out.println("Cromosom: " + ga.getParamsFromCromozom(ga.getBinaryCromosom(fittest)));
+            System.out.println(fittest);
             System.out.println("Fitness: " + ga.getFitness(fittest));
 
         } catch (Exception e) {
@@ -59,6 +57,7 @@ public class Main {
         public EX2(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
             super(m, n, it, uc, um, elitism, low, high);
         }
+
         // ecuatia sferei
         // sum from i=1 to m of x(i)^2
         // x(i) is coded with 8 bits
@@ -166,7 +165,7 @@ public class Main {
             double value = 0.0;
 
             for (int i = 0; i < target.length(); i++) {
-                if(target.charAt(i) == binaryChromosome.charAt(i))
+                if (target.charAt(i) == binaryChromosome.charAt(i))
                     value++;
             }
 
@@ -190,24 +189,21 @@ public class Main {
             double x4 = chromosome.get(3);
             double x5 = chromosome.get(4);
 
-            if((x1+x2+x3 == 1) && (x1-x2+x4 == 1) && (x1+2*x2+x5 == 1) && (3*x1+x2+2*x3+x4 == 3))
+            if ((x1 + x2 + x3 == 1) && (x1 - x2 + x4 == 1) && (x1 + 2 * x2 + x5 == 1) && (3 * x1 + x2 + 2 * x3 + x4 == 3))
                 return -1 * x1 + 3 * x2 + 2 * x3 - x4 + x5;
             else
                 return 0;
         }
     }
-    public static class Classification extends GeneticAlgorithm {
-        public Classification(int m, int n, int it, double uc, double um, boolean elitism, int geneSize) {
-            super(m, n, it, uc, um, elitism, geneSize);
-        }
 
+    public static class Classification extends GeneticAlgorithm {
         public Classification(int m, int n, int it, double uc, double um, boolean elitism, int low, int high) {
             super(m, n, it, uc, um, elitism, low, high);
         }
 
         public double fitness(SimpleMatrix chromosome) {
-           SimpleMatrix class_matrix = new SimpleMatrix();
-           return 0;
+
+            return 0;
         }
     }
 

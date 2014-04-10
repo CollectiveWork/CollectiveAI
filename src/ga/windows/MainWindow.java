@@ -1,7 +1,10 @@
 package ga.windows;
 
+import ga.GeneticAlgorithm;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 
 /**
  * Created by AndreiMadalin on 4/8/14.
@@ -9,7 +12,7 @@ import java.awt.*;
 public class MainWindow {
 
     JFrame frame = new JFrame();
-    JPanel panel = new JPanel();
+    public DrawPanel draw_panel;
     public JTextArea output;
 
     public MainWindow(String title,int x,int y){
@@ -26,14 +29,21 @@ public class MainWindow {
 
         frame.setTitle(title);
         frame.setResizable(false);
-        output = new JTextArea((x/20),(y/20));
         frame.setVisible(true);
         frame.setSize(new Dimension(x,y));
-        panel.setSize(new Dimension(x,y));
 
-        frame.add(panel);
-        panel.add(output);
-        output.setFocusable(false);
+        draw_panel = new DrawPanel();
+        frame.add(draw_panel);
+
+
+//        draw_panel.setSize(new Dimension(x,y));
+//        frame.add(draw_panel);
+
+//        output = new JTextArea((x/20),(y/20));
+//        panel.add(output);
+//        output.setFocusable(false);
+
+
 
 
 

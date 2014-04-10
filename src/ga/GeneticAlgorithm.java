@@ -1,9 +1,12 @@
 package ga;
 
 
+import ga.windows.DrawPanel;
+import ga.windows.MainWindow;
 import org.ejml.simple.SimpleMatrix;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by AndreiMadalin on 3/12/14.
@@ -24,7 +27,8 @@ public abstract class GeneticAlgorithm {
     SimpleMatrix normalized_population; // fitnesul fiecarui cromozom, normalizat
     SimpleMatrix cumulative_population; //
 
-    JTextArea output = null;
+    protected JTextArea output = null;
+    protected MainWindow window = null;
 
     public GeneticAlgorithm() {
 
@@ -32,6 +36,10 @@ public abstract class GeneticAlgorithm {
 
     public void setOutput(JTextArea output) {
         this.output = output;
+    }
+
+    public void setWindow(MainWindow window) {
+        this.window = window;
     }
 
     /**
@@ -77,8 +85,17 @@ public abstract class GeneticAlgorithm {
 
         SimpleMatrix new_population;
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
-        int i = 0;
+        int i = 1;
+        double highest_mutation = .333;
+        double lowest_mutation = .015;
+        int num_changes = it / 100 / 2;
+        double step_change = ( highest_mutation - lowest_mutation ) / num_changes;
+
         do {
+            if(i % 100 == 0){
+                um += (i < it / 2) ? -step_change : step_change;
+            }
+
             fitness_population = getPopulationFitness(population);
             sortPopulationByFitness(population, fitness_population);
             normalized_population = getNormalizedFitnes();
@@ -117,7 +134,7 @@ public abstract class GeneticAlgorithm {
             }
             i++;
             //System.out.println(binaryToString(getFittest()));
-        } while (i < it);
+        } while (i <= it);
 
         // fix all the values after last mutaion
         fitness_population = getPopulationFitness(population);
