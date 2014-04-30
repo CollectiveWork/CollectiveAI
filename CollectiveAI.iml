@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="ejml-0.24" level="project" />
+    <orderEntry type="library" name="jahmm-0.3.0" level="project" />
   </component>
 </module>
 

@@ -2,23 +2,28 @@ package ga.windows;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 /**
  * Created by AndreiMadalin on 4/10/14.
  */
 public class DrawPanel extends JPanel {
-    ArrayList<ArrayList<ArrayList<Integer>>> classes = new ArrayList<>();
+    ArrayList<ArrayList<ArrayList<Double>>> classes = new ArrayList<>();
     ArrayList<Color> class_color = new ArrayList<>();
+    String chromosome;
+    int H, b;
+    double diag;
+    boolean painLine = false;
     // x-axis coord constants
-    public static final int X_AXIS_FIRST_X_COORD = 50;
+    public static final int X_AXIS_FIRST_X_COORD = 500;
     public static final int X_AXIS_SECOND_X_COORD = 600;
     public static final int X_AXIS_Y_COORD = 600;
 
     // y-axis coord constants
-    public static final int Y_AXIS_FIRST_Y_COORD = 50;
+    public static final int Y_AXIS_FIRST_Y_COORD = 300;
     public static final int Y_AXIS_SECOND_Y_COORD = 600;
-    public static final int Y_AXIS_X_COORD = 50;
+    public static final int Y_AXIS_X_COORD = 300;
 
     //arrows of axis are represented with "hipotenuse" of
     //triangle
@@ -36,8 +41,10 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g);
 
         if (classes.size() > 0) {
-            drawCoordinateSystem(g);
+            //drawCoordinateSystem(g);
             drawPoints(g);
+            if(painLine)
+                drawLines(g);
         }
     }
 
@@ -47,12 +54,40 @@ public class DrawPanel extends JPanel {
         g2d.scale(1.0, -1.0);
 
         generateColors();
-        int id = 0;
-        for (ArrayList<ArrayList<Integer>> klass : classes) {
-            g2d.setColor(class_color.get(id++));
-            for (ArrayList<Integer> point : klass) {
-                g2d.drawOval(X_AXIS_FIRST_X_COORD + point.get(0), Y_AXIS_FIRST_Y_COORD + AXIS_STRING_DISTANCE + point.get(1),1,1);
+        for (int k = 0; k < classes.size(); k++) {
+            g2d.setColor(class_color.get(k));
+            for (ArrayList<Double> point : classes.get(k)) {
+                if(k == 0)
+                    g2d.drawRect((int)(X_AXIS_FIRST_X_COORD + point.get(0)), (int)(Y_AXIS_FIRST_Y_COORD + AXIS_STRING_DISTANCE + point.get(1)),5,5);
+                if(k == 1)
+                    g2d.drawOval((int)(X_AXIS_FIRST_X_COORD + point.get(0)), (int)(Y_AXIS_FIRST_Y_COORD + AXIS_STRING_DISTANCE + point.get(1)),5,5);
             }
+        }
+    }
+
+    synchronized private void drawLines(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.black);
+        int numHyperplanes = H;
+        double angle;
+        double d;
+        String hyperplane;
+
+        double d_min = 0;
+        for (int h = 0; h < numHyperplanes; h++) {
+            hyperplane = chromosome.substring(h*2*b,(h+1)*2*b);
+            angle = Integer.parseInt(hyperplane.substring(0,b), 2);
+            angle *= (2 * Math.PI) / Math.pow(2, b);
+
+            d = Integer.parseInt(hyperplane.substring(b,2*b), 2);
+            d *= diag / Math.pow(2, b) + d_min;
+
+            int startX = (int)(X_AXIS_FIRST_X_COORD +  d*10);
+            int startY = (int) (Y_AXIS_FIRST_Y_COORD + AXIS_STRING_DISTANCE +  d*10);
+            int endX   = (int) (X_AXIS_FIRST_X_COORD +  1000*Math.sin(angle) +  d*10);
+            int endY   = (int) (Y_AXIS_FIRST_Y_COORD  + AXIS_STRING_DISTANCE + 1000*Math.cos(angle) +  d*10);
+            g2d.drawLine(startX,startY,endX,endY);
         }
     }
 
@@ -131,12 +166,28 @@ public class DrawPanel extends JPanel {
     }
 
     private void generateColors() {
-        for (int i = 0; i < classes.size(); i++) {
-            class_color.add(i, new Color((int) (Math.random() * 0xFFFFFF)));
-        }
+//        for (int i = 0; i < classes.size(); i++) {
+//            class_color.add(i, new Color((int) (Math.random() * 0xFFFFFF)));
+//        }
+
+        class_color.add(0, new Color(1, 35,178));
+        class_color.add(1, new Color(112, 109,0));
     }
 
-    public void setPoints2Draw(ArrayList<ArrayList<ArrayList<Integer>>> classes) {
+    public void setPoints2Draw(ArrayList<ArrayList<ArrayList<Double>>> classes) {
         this.classes = classes;
+    }
+
+    public void setVariables(int H, double diag, int b){
+        this.H = H;
+        this.diag = diag;
+        this.b = b;
+    }
+
+    public void setChromosome(String chromosome){
+        painLine = false;
+        this.chromosome = chromosome;
+        painLine = true;
+        repaint();
     }
 }

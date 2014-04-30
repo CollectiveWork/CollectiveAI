@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         GeneticAlgorithm ga = new Classification(1, 20, 1500, .8, .333, true, 0,255);
-        MainWindow window = new MainWindow("AG", 500, 500);
+        MainWindow window = new MainWindow("AG", 1000, 700);
 
 
         // AG pe codificare pe alfabet binare

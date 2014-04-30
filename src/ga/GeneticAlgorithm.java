@@ -1,45 +1,37 @@
 package ga;
 
 
-import ga.windows.DrawPanel;
 import ga.windows.MainWindow;
 import org.ejml.simple.SimpleMatrix;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by AndreiMadalin on 3/12/14.
  */
 public abstract class GeneticAlgorithm {
-    int m; // dimensiunea unui cromozom
-    int n; // dimensiunea populatiei
-    int it; // numarul de iteratii
-    double uc; // probabilitatea de crossover
-    double um; // probabilitatea de mutatie
-    int geneSize;
-    double low, high;
-    boolean elitism;
-    boolean maximize;
-    String type;
-    SimpleMatrix population; // populatia de cromozomi
-    SimpleMatrix fitness_population; // fitnesul fiecarui cromozom
-    SimpleMatrix normalized_population; // fitnesul fiecarui cromozom, normalizat
-    SimpleMatrix cumulative_population; //
+    protected int m; // dimensiunea unui cromozom
+    protected int n; // dimensiunea populatiei
+    protected int it; // numarul de iteratii
+    protected double uc; // probabilitatea de crossover
+    protected double um; // probabilitatea de mutatie
+    protected int geneSize;
+    protected double low, high;
+    protected boolean elitism;
+    protected boolean maximize;
+    protected String type;
+    protected SimpleMatrix population; // populatia de cromozomi
+    protected SimpleMatrix fitness_population; // fitnesul fiecarui cromozom
+    protected SimpleMatrix normalized_population; // fitnesul fiecarui cromozom, normalizat
+    protected SimpleMatrix cumulative_population; //
+    protected String best_chromosome = "";
+
 
     protected JTextArea output = null;
     protected MainWindow window = null;
 
     public GeneticAlgorithm() {
 
-    }
-
-    public void setOutput(JTextArea output) {
-        this.output = output;
-    }
-
-    public void setWindow(MainWindow window) {
-        this.window = window;
     }
 
     /**
@@ -72,9 +64,16 @@ public abstract class GeneticAlgorithm {
         this.type = "real";
     }
 
+    public void setOutput(JTextArea output) {
+        this.output = output;
+    }
+
+    public void setWindow(MainWindow window) {
+        this.window = window;
+    }
+
     /**
-     *
-     * @param maximize set this true if you want the GA to maximize the fitness function ( set it false if you want to minimize it )
+     * @param maximize           set this true if you want the GA to maximize the fitness function ( set it false if you want to minimize it )
      * @param crossoverAlgorithm the crossover algorithm
      * @return the population at the end of iterations
      * @throws Exception
@@ -82,6 +81,7 @@ public abstract class GeneticAlgorithm {
     public SimpleMatrix start(boolean maximize, String crossoverAlgorithm) throws Exception {
         population = init();
         this.maximize = maximize;
+        String tmp;
 
         SimpleMatrix new_population;
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
@@ -89,10 +89,10 @@ public abstract class GeneticAlgorithm {
         double highest_mutation = .333;
         double lowest_mutation = .015;
         int num_changes = it / 100 / 2;
-        double step_change = ( highest_mutation - lowest_mutation ) / num_changes;
+        double step_change = (highest_mutation - lowest_mutation) / num_changes;
 
         do {
-            if(i % 100 == 0){
+            if (i % 100 == 0) {
                 um += (i < it / 2) ? -step_change : step_change;
             }
 
@@ -100,6 +100,15 @@ public abstract class GeneticAlgorithm {
             sortPopulationByFitness(population, fitness_population);
             normalized_population = getNormalizedFitnes();
             cumulative_population = getCumulativeFitnes();
+
+            if (i % 10 == 0){
+                tmp = best_chromosome;
+                best_chromosome = getBinaryCromosom(getFittest());
+                if(tmp != best_chromosome)
+                    window.draw_panel.setChromosome(best_chromosome);
+                System.out.println("Iteration " + i + ". Fittest fitness: " + getFitness(getFittest()) + " " + best_chromosome);
+
+            }
 
             new_population = Population.rouletteWheelSelection(population, cumulative_population);
 
@@ -123,13 +132,13 @@ public abstract class GeneticAlgorithm {
                 new_population = GeneticOperations.mutation(new_population, um, high - low);
 
 
-            if(elitism){
-                all_population.insertIntoThis(0,0,population);
+            if (elitism) {
+                all_population.insertIntoThis(0, 0, population);
                 all_population.insertIntoThis(0, population.numCols(), new_population);
                 sortPopulationByFitness(all_population, getPopulationFitness(all_population));
 
-                population = all_population.extractMatrix(0,population.numRows(),0,population.numCols());
-            }else{
+                population = all_population.extractMatrix(0, population.numRows(), 0, population.numCols());
+            } else {
                 population = new_population;
             }
             i++;
@@ -209,7 +218,7 @@ public abstract class GeneticAlgorithm {
         do {
             s = false;
             for (int i = 0; i < n - 1; i++) {
-                if ( maximize ? fitness_population.get(i) < fitness_population.get(i + 1) : fitness_population.get(i) > fitness_population.get(i + 1)) {
+                if (maximize ? fitness_population.get(i) < fitness_population.get(i + 1) : fitness_population.get(i) > fitness_population.get(i + 1)) {
                     temp1 = fitness_population.get(i);
                     fitness_population.set(i, fitness_population.get(i + 1));
                     fitness_population.set(i + 1, temp1);
@@ -274,12 +283,12 @@ public abstract class GeneticAlgorithm {
             return fitness(chromosome);
     }
 
-    public String binaryToString(SimpleMatrix chromosome){
+    public String binaryToString(SimpleMatrix chromosome) {
         String s = getBinaryCromosom(chromosome);
         String[] ss = s.split("(?<=\\G.{8})");
         StringBuilder sb = new StringBuilder();
-        for ( int i = 0; i < ss.length; i++ ) {
-            sb.append( (char)Integer.parseInt( ss[i], 2 ) );
+        for (int i = 0; i < ss.length; i++) {
+            sb.append((char) Integer.parseInt(ss[i], 2));
         }
         return sb.toString();
     }

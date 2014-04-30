@@ -43,9 +43,5 @@ public class MainWindow {
 //        panel.add(output);
 //        output.setFocusable(false);
 
-
-
-
-
     }
 }
