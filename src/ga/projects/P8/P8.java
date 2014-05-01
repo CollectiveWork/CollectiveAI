@@ -26,11 +26,11 @@ public class P8 extends GeneticAlgorithm {
     }
 
     public static void main(String[] args) {
-        int b = 6;
-        int H = 1;
+        int b = 4;
+        int H = 2;
         int chromosome_length = 2 * b * H;
         int population_size = 50;
-        int iterations = 5000;
+        int iterations = 500;
 
         MainWindow window = new MainWindow("AG", 1000, 700);
 
@@ -70,8 +70,8 @@ public class P8 extends GeneticAlgorithm {
         for (int i = 1; i <= datasetSize / 2; i++) {
             temp_point = mrd_c1.generate();
             temp = new ArrayList<>();
-            temp.add(temp_point[0] * resize_factor); // x position
-            temp.add(temp_point[1] * resize_factor); // y position
+            temp.add(temp_point[0] * resize_factor /*( (temp_point[0] >= 0) ? resize_factor : - 1 * resize_factor)*/); // x position
+            temp.add(temp_point[1] * resize_factor /*( (temp_point[1] >= 0) ? resize_factor : - 1 * resize_factor)*/); // y position
             class1.add(temp);
             dataset[i-1][0] = temp_point[0];
             if(temp_point[0] > x_max)

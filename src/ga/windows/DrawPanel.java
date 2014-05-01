@@ -83,10 +83,15 @@ public class DrawPanel extends JPanel {
             d = Integer.parseInt(hyperplane.substring(b,2*b), 2);
             d *= diag / Math.pow(2, b) + d_min;
 
-            int startX = (int)(X_AXIS_FIRST_X_COORD +  d*10);
-            int startY = (int) (Y_AXIS_FIRST_Y_COORD + AXIS_STRING_DISTANCE +  d*10);
-            int endX   = (int) (X_AXIS_FIRST_X_COORD +  1000*Math.sin(angle) +  d*10);
-            int endY   = (int) (Y_AXIS_FIRST_Y_COORD  + AXIS_STRING_DISTANCE + 1000*Math.cos(angle) +  d*10);
+            int f = (int) (d *30);
+            int startX = (int) (X_AXIS_FIRST_X_COORD +  f);
+            int startY = (int) (Y_AXIS_FIRST_Y_COORD + f);
+            int endX   = (int) (X_AXIS_FIRST_X_COORD + 1000*Math.sin(angle - Math.PI / 2) +  f);
+            int endY   = (int) (Y_AXIS_FIRST_Y_COORD + 1000*Math.cos(angle - Math.PI / 2) + f);
+            g2d.drawLine(startX,startY,endX,endY);
+
+             endX   = (int) (X_AXIS_FIRST_X_COORD +  1000*Math.sin(angle - 3*Math.PI / 2) +  f);
+             endY   = (int) (Y_AXIS_FIRST_Y_COORD  + 1000*Math.cos(angle - 3*Math.PI / 2) + f);
             g2d.drawLine(startX,startY,endX,endY);
         }
     }
