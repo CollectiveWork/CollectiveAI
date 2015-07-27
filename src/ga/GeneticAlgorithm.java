@@ -80,8 +80,10 @@ public abstract class GeneticAlgorithm {
 
         this.maximize = maximize;
 
+        String binaryChromosome;
         SimpleMatrix new_population;
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
+        BigInteger p,q;
 
         int max = 6;
         int nr = 0;
@@ -99,7 +101,7 @@ public abstract class GeneticAlgorithm {
                 last_fittest = getFittest();
             }
 
-            if (i % 100 == 0) {
+            if (i % 10 == 0) {
 
                 nr++;
 
@@ -108,14 +110,14 @@ public abstract class GeneticAlgorithm {
                 if (getFitness(getFittest()) == (getFitness(last_fittest))) count_fit++;
 
                 if (count_fit == 5) {
-
+                    System.out.println("a sarit!!!!!!!!!!!!!!!!!!!!!!!!");
                     lum = um;
                     um = .99;
                     count_fit = 0;
                 } else {
                     um += nr <= (max / 2) ? -vm : vm;
                 }
-                System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
+            //    System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
 
                 last_fittest = getFittest();
                 if (nr == max) nr = 0;
@@ -157,19 +159,24 @@ public abstract class GeneticAlgorithm {
                 population = new_population;
             }
 
-            if(bestPopulation!=null&&i%100==0){
+            if(bestPopulation!=null&&i%25==0){
                 all_population.insertIntoThis(0, 0, population);
                 all_population.insertIntoThis(0, population.numCols(), bestPopulation);
                 sortPopulationByFitness(all_population, getPopulationFitness(all_population));
 
                 population = all_population.extractMatrix(0, population.numRows(), 0, population.numCols());
                 bestPopulation.set(population);
+
+                binaryChromosome = getBinaryCromosom(getFittest());
+                p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
+                q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
+
+                System.out.println(" P: " + p + " Q:" + q + " Target: n: " + n + " p: " + rsa_tmp.p + " q: " + rsa_tmp.q);
             }
 
 
 
             i++;
-            //System.out.println(binaryToString(getFittest()));
         } while (true);
 
         // fix all the values after last mutaion

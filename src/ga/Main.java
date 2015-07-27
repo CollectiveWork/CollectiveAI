@@ -26,8 +26,10 @@ public class Main {
         final int bitLength = 32;
         final int chromosomeLength = bitLength;
         final int params = 2;
-        int threads = 5;
-        final int pop_size = 300;
+        int threads = 8;
+        final int pop_size = 500;
+
+
 
         rsa.Initialize(bitLength);
         dick = rsa.d;
@@ -52,7 +54,7 @@ public class Main {
             rsa_tmp.e = rsa.e;
             rsa_tmp.d = rsa.d;
 
-            final double mutations[] = {.005, .05, .3, .5, .9,.005, .05, .2, .5, .9};
+            final double mutations[] = {.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9,.005, .05, .3, .5, .9,.005, .05, .2, .5, .9};
             final int finalI = i;
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -60,7 +62,7 @@ public class Main {
 
 
                     // AG pe codificare pe alfabet binare
-                    GeneticAlgorithm ga = new RSAPQ(params * chromosomeLength, pop_size, 1000000000, .8, mutations[finalI], true, chromosomeLength, finalI, null, rsa_tmp);
+                    GeneticAlgorithm ga = new RSAPQ(params * chromosomeLength, pop_size, 1000000000, .8, mutations[finalI], true, chromosomeLength, finalI, finalBestPopulation, rsa_tmp);
                     //GeneticAlgorithm ga = new EX1(8, 50, 150, .80, .002, true, 8);
 
                     SimpleMatrix tmp;
@@ -116,7 +118,9 @@ public class Main {
 
 
             prod = p.multiply(q);
-            System.out.println("P: " + p + " Q:" + q + " Prod: " + prod + " Target: n: " + n + " p: " + rsa.p + " q: " + rsa.q);
+
+            distance = prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+            //System.out.println(distance + "%" + " P: " + p + " Q:" + q + " Prod: " + prod + " Target: n: " + n + " p: " + rsa.p + " q: " + rsa.q);
             if(prod.equals(n)){
                 System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println(rsa.p + " " + rsa.q);
@@ -126,8 +130,7 @@ public class Main {
             }
 
             //distance = hammingDistance(prod, n);
-            return prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
-
+            return distance;
         }
     }
 
