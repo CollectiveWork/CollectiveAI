@@ -27,9 +27,7 @@ public abstract class GeneticAlgorithm {
     int id;
     SimpleMatrix bestPopulation;
     RSA rsa_tmp;
-    public GeneticAlgorithm() {
-
-    }
+    public GeneticAlgorithm() {}
 
     /**
      * @param m  // dimensiunea unui cromozom
@@ -76,57 +74,72 @@ public abstract class GeneticAlgorithm {
      * @throws Exception
      */
     synchronized public void start(boolean maximize, String crossoverAlgorithm) throws Exception {
-        population = init();
-
         this.maximize = maximize;
 
+        // initialize the population
+        population = init();
+
+
+        // declare variables
+        BigInteger p,q;
         String binaryChromosome;
         SimpleMatrix new_population;
+
+        // define variable that will merge the current population with the best population from the master thread
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
-        BigInteger p,q;
 
-        int max = 6;
-        int nr = 0;
-        vm = um / max;
-        int i = 0;
+        int i = 0; // iterations
 
-        double lum = 0;
+        int mutation_fluctuation_count = 0; // counter used to fluctuate the mutation
+        int max_mutation_fluctuation = 6;   // max number of fluctuations
+        vm = um / max_mutation_fluctuation; // step used for fluctuation
 
-        SimpleMatrix last_fittest = null;
+        // keep the last mutation value
+        double lum = um;
+
+        // keep the individual with the best fitness
+        SimpleMatrix last_fittest = getFittest();
+
+        // count how many iterations in a row the fitness is the same across all population
         int count_fit = 0;
 
 
         do {
-            if (i == 0) {
-                last_fittest = getFittest();
-            }
 
+            // each 10 iterations
             if (i % 10 == 0) {
 
-                nr++;
+                mutation_fluctuation_count++;
 
-                if (um == .99) um = lum;
+                // if the fitness is unchanged, increment the counter
+                if (getFitness(getFittest()) == (getFitness(last_fittest)))
+                    count_fit++;
 
-                if (getFitness(getFittest()) == (getFitness(last_fittest))) count_fit++;
+                // reset the mutation value
+                if (um == .99)
+                    um = lum;
 
-                if (count_fit == 5) {
-                    System.out.println("a sarit!!!!!!!!!!!!!!!!!!!!!!!!");
-                    lum = um;
-                    um = .99;
-                    count_fit = 0;
+                // if the fitness is unchanged multiple times in a row
+                if (count_fit == 2) {
+                    lum = um;      // remember the actual mutation value
+                    um = .99;      // make the mutation full random for the next iterations
+                    count_fit = 0; // reset the counter
                 } else {
-                    um += nr <= (max / 2) ? -vm : vm;
+                    // fluctuate the mutation with vm value ( the graph of fluctuations looks like the sin function )
+                    um += (mutation_fluctuation_count % max_mutation_fluctuation) <= (max_mutation_fluctuation / 2) ? -vm : vm;
                 }
-            //    System.out.println("id:"+id+"\t"+i + " " + getFitness(getFittest()));
 
+                // get the fittest individual
                 last_fittest = getFittest();
-                if (nr == max) nr = 0;
             }
-            fitness_population = getPopulationFitness(population);
-            sortPopulationByFitness(population, fitness_population);
-            normalized_population = getNormalizedFitnes();
-            cumulative_population = getCumulativeFitnes();
 
+
+            fitness_population = getPopulationFitness(population); // calculate the fitness for each individual
+            sortPopulationByFitness(population, fitness_population); // sort population by fitness
+            normalized_population = getNormalizedFitnes(); // calculate the fitness normalization
+            cumulative_population = getCumulativeFitnes();// calculate cumulative fitness values
+
+            // create a new population
             new_population = Population.rouletteWheelSelection(population, cumulative_population);
 
             switch (crossoverAlgorithm) {
@@ -134,7 +147,7 @@ public abstract class GeneticAlgorithm {
                     new_population = GeneticOperations.singlePointCrossover(type, new_population, uc);
                     break;
                 case "doublePointCrossover":
-                    new_population = GeneticOperations.doublePontCrossover(type, new_population, uc);
+                    new_population = GeneticOperations.doublePointCrossover(type, new_population, uc);
                     break;
                 case "multiPointCrossover":
                     new_population = GeneticOperations.multiPointCrossover(type, new_population, uc);
@@ -159,14 +172,23 @@ public abstract class GeneticAlgorithm {
                 population = new_population;
             }
 
-            if(bestPopulation!=null&&i%25==0){
+            // TODO CHANGE THIS METHOD TO A PROBABILISTIC ONE
+            // if exists best population and each 10 iterations
+            if(bestPopulation != null && i % 10 == 0){
+                // add current population to all population temp var
                 all_population.insertIntoThis(0, 0, population);
+                // add best population to all population temp var
                 all_population.insertIntoThis(0, population.numCols(), bestPopulation);
+                // sort all population
                 sortPopulationByFitness(all_population, getPopulationFitness(all_population));
 
+                // keep best population.size() individuals
                 population = all_population.extractMatrix(0, population.numRows(), 0, population.numCols());
+                // set the best population
                 bestPopulation.set(population);
 
+                // DEMO log some values
+                // TODO REMOVE THIS IN PRODUCTION
                 binaryChromosome = getBinaryCromosom(getFittest());
                 p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
                 q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
@@ -174,18 +196,10 @@ public abstract class GeneticAlgorithm {
                 System.out.println(" P: " + p + " Q:" + q + " Target: n: " + n + " p: " + rsa_tmp.p + " q: " + rsa_tmp.q);
             }
 
-
+            // TODO MAKE A CHECK AND IF WE FIND THE SOLUTION CLOSE ALL THREADS AND OUTPUT P AND Q
 
             i++;
         } while (true);
-
-        // fix all the values after last mutaion
-//        fitness_population = getPopulationFitness(population);
-//        sortPopulationByFitness(population, fitness_population);
-//        normalized_population = getNormalizedFitnes();
-//        cumulative_population = getCumulativeFitnes();
-//
-//        return population;
     }
 
     private SimpleMatrix init() {
@@ -329,14 +343,10 @@ public abstract class GeneticAlgorithm {
     }
 
     private SimpleMatrix makePopulationPrime(SimpleMatrix population){
-        int m = population.numRows();
         int n = population.numCols();
         SimpleMatrix tmp;
         for (int i = 0; i < n; i++) {
             tmp = population.extractVector(false, i);
-            String string_chromosome = getBinaryCromosom(tmp);
-            if(tmp.numRows() < 2*geneSize)
-                System.out.println("ok");
             population.insertIntoThis(0, i, makeItPrime(tmp));
         }
 
@@ -346,8 +356,6 @@ public abstract class GeneticAlgorithm {
 
     public SimpleMatrix makeItPrime(SimpleMatrix chromosome){
         String string_chromosome = getBinaryCromosom(chromosome);
-        if(string_chromosome.length() < 2 * geneSize)
-            System.out.println("ok");
         String string_p = string_chromosome.substring(0, geneSize);
         String string_q = string_chromosome.substring(geneSize, 2*geneSize);
 

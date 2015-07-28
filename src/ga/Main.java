@@ -23,10 +23,10 @@ public class Main {
 //            "078509625585487806139801071681737807732087364739314229753431",10);
 
     public static void main(String[] args) {
-        final int bitLength = 32;
+        final int bitLength = 18;
         final int chromosomeLength = bitLength;
         final int params = 2;
-        int threads = 8;
+        int threads = 10;
         final int pop_size = 500;
 
 
@@ -84,20 +84,6 @@ public class Main {
         }
     }
 
-    public static class EX1 extends GeneticAlgorithm {
-        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
-            super(m, n, it, uc, um, elitism, geneSize, id, bestPopulation, rsa_tmp);
-        }
-
-        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int low, int high, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
-            super(m, n, it, uc, um, elitism, low, high, id, bestPopulation, rsa_tmp);
-        }
-
-        public double fitness(SimpleMatrix chromosome) {
-            return Math.sin((Math.PI * chromosome.get(0)) / 256);
-        }
-    }
-
     public static class RSAPQ extends GeneticAlgorithm {
         public RSAPQ(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
             super(m, n, it, uc, um, elitism, geneSize, id, bestPopulation, rsa_tmp);
@@ -113,14 +99,13 @@ public class Main {
             BigInteger p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
             BigInteger q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
             BigInteger n = rsa.n;
-            double distance = 0;
+            double distance;
             BigInteger prod;
 
 
             prod = p.multiply(q);
 
             distance = prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
-            //System.out.println(distance + "%" + " P: " + p + " Q:" + q + " Prod: " + prod + " Target: n: " + n + " p: " + rsa.p + " q: " + rsa.q);
             if(prod.equals(n)){
                 System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println(rsa.p + " " + rsa.q);
@@ -129,8 +114,21 @@ public class Main {
                 System.exit(0);
             }
 
-            //distance = hammingDistance(prod, n);
             return distance;
+        }
+    }
+
+    public static class EX1 extends GeneticAlgorithm {
+        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int geneSize, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
+            super(m, n, it, uc, um, elitism, geneSize, id, bestPopulation, rsa_tmp);
+        }
+
+        public EX1(int m, int n, int it, double uc, double um, boolean elitism, int low, int high, int id, SimpleMatrix bestPopulation, RSA rsa_tmp) {
+            super(m, n, it, uc, um, elitism, low, high, id, bestPopulation, rsa_tmp);
+        }
+
+        public double fitness(SimpleMatrix chromosome) {
+            return Math.sin((Math.PI * chromosome.get(0)) / 256);
         }
     }
 

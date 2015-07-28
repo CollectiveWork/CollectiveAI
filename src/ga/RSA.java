@@ -21,6 +21,11 @@ public class RSA {
 
     public BigInteger e, d; // exponential and private key
 
+    public RSA(){}
+    public RSA (RSA rsa_tmp){
+        InitializeParams(rsa_tmp.p, rsa_tmp.q, rsa_tmp.e, rsa_tmp.d);
+    }
+
     public void Initialize(int SIZE) {
        
 
@@ -46,8 +51,6 @@ public class RSA {
 
     }
     public void InitializeParams(BigInteger p,BigInteger q,BigInteger e,BigInteger d) {
-
-
         this.p=p;
         this.q=q;
 
@@ -132,14 +135,6 @@ public class RSA {
 
         System.out.println("decrypted2 : " + bplaintext2.toString());
         System.out.println(String.valueOf(new String(bplaintext2.toByteArray())));
-
-
-
-
-
-
-
-
 
     }
 

@@ -21,7 +21,7 @@ public class GeneticOperations {
         return crossover(type, parents, uc, 1);
     }
 
-    public static SimpleMatrix doublePontCrossover(String type, SimpleMatrix parents, double uc) {
+    public static SimpleMatrix doublePointCrossover(String type, SimpleMatrix parents, double uc) {
         return crossover(type, parents, uc, 2);
     }
 
@@ -174,7 +174,7 @@ public class GeneticOperations {
         Random rand = new Random();
         int positions[] = new int[l];
         int i = 0;
-        boolean g = false;
+        boolean g;
         while (i < l) {
             g = false;
             positions[i] = rand.nextInt(m - 1) + 1;
