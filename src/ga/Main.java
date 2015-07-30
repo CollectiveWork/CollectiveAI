@@ -23,25 +23,25 @@ public class Main {
 //            "078509625585487806139801071681737807732087364739314229753431",10);
 
     public static void main(String[] args) {
-        final int bitLength = 18;
+        final int bitLength = 8;
         final int chromosomeLength = bitLength;
         final int params = 2;
-        int threads = 10;
+        int threads = 8;
         final int pop_size = 500;
 
 
 
         rsa.Initialize(bitLength);
-        dick = rsa.d;
-        plaintext = new BigInteger[message.length];
-        ciphertext = new BigInteger[message.length];
-
-        for (int i = 0; i < message.length; i++) {
-            plaintext[i] = new BigInteger(message[i].getBytes());
-            ciphertext[i] = rsa.encrypt(plaintext[i]);
-        }
-        P = rsa.p;
-        Q = rsa.q;
+//        dick = rsa.d;
+//        plaintext = new BigInteger[message.length];
+//        ciphertext = new BigInteger[message.length];
+//
+//        for (int i = 0; i < message.length; i++) {
+//            plaintext[i] = new BigInteger(message[i].getBytes());
+//            ciphertext[i] = rsa.encrypt(plaintext[i]);
+//        }
+//        P = rsa.p;
+//        Q = rsa.q;
 
         final SimpleMatrix finalBestPopulation = Population.init(params * chromosomeLength, pop_size);
         for (int i = 0; i < threads; i++) {
@@ -104,15 +104,21 @@ public class Main {
 
 
             prod = p.multiply(q);
+          //  prod = (p.subtract(q)).multiply(p.add(q));
 
-            distance = prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+         //  distance = prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+            distance = ((p.multiply(p)).subtract(q.multiply(q))).subtract(n).doubleValue();
+          //  distance = prod.multiply(BigInteger.valueOf(-1)).add(n).abs().doubleValue();
+
             if(prod.equals(n)){
                 System.out.println("gata!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println(rsa.p + " " + rsa.q);
                 System.out.println(p + " " + q);
                 System.out.println("P: " + p + " Q:" + q + " Prod: " + prod + " Target:" + n);
+             //   System.out.println("P: " + p.subtract(q) + " Q:" + p.add(q) + " Prod: " + prod + " Target:" + n);
                 System.exit(0);
             }
+
 
             return distance;
         }
