@@ -58,12 +58,12 @@ public class FermatFactorization {
     public static void main(String[] args)
     {
 
-        int bitLength = 64;
+        int bitLength = 27;
         BigInteger p = new BigInteger(bitLength,128,new Random());
         BigInteger q = new BigInteger(bitLength,128,new Random());
         System.out.println("p: "+ p + " q: "+q);
         BigInteger N = p.multiply(q);
-        //N = new BigInteger("16");
+         //N = new BigInteger("16");
 
         System.out.println("Integer: "+ N);
 
