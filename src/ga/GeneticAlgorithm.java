@@ -81,9 +81,11 @@ public abstract class GeneticAlgorithm {
 
 
         // declare variables
-        BigInteger p,q;
+        BigInteger p,q,a;
         String binaryChromosome;
         SimpleMatrix new_population;
+
+        BigInteger a2,b, sqrtb,xp, xq;
 
         // define variable that will merge the current population with the best population from the master thread
         SimpleMatrix all_population = new SimpleMatrix(population.numRows(), population.numCols() * 2);
@@ -174,7 +176,7 @@ public abstract class GeneticAlgorithm {
 
             // TODO CHANGE THIS METHOD TO A PROBABILISTIC ONE
             // if exists best population and each 10 iterations
-            if(bestPopulation != null && i % 10 == 0){
+            if(bestPopulation != null && i % 100 == 0){
                 // add current population to all population temp var
                 all_population.insertIntoThis(0, 0, population);
                 // add best population to all population temp var
@@ -187,14 +189,30 @@ public abstract class GeneticAlgorithm {
                 // set the best population
                 bestPopulation.set(population);
 
-                // DEMO log some values
-                // TODO REMOVE THIS IN PRODUCTION
-                binaryChromosome = getBinaryCromosom(getFittest());
-                p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
-                q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
-
-                System.out.println(" P: " + p + " Q:" + q + " Target: n: " + n + " p: " + rsa_tmp.p + " q: " + rsa_tmp.q);
             }
+
+            if(i%10 == 0){
+
+                binaryChromosome = getBinaryCromosom(getFittest());
+                a = new BigInteger(binaryChromosome, 2);
+
+                a2 = a.multiply(a);
+                b = a2.subtract(rsa_tmp.n);
+                sqrtb = Factoring.sqrt(b);
+
+                xp = a.subtract(sqrtb);
+                xq = a.add(sqrtb);
+
+                System.out.println("a = " + a + " distance = " + fitness(getFittest()) + " xp = " + xp + " xq = " + xq + "real p = " + rsa_tmp.p + "real q =" + rsa_tmp.q);
+
+//                // DEMO log some values
+//                // TODO REMOVE THIS IN PRODUCTION
+//                binaryChromosome = getBinaryCromosom(getFittest());
+//                p = new BigInteger(binaryChromosome.substring(0, geneSize), 2);
+//                q = new BigInteger(binaryChromosome.substring(geneSize, 2 * geneSize), 2);
+//
+//                System.out.println(" P: " + p + " Q:" + q + " Target: n: " + n + " p: " + rsa_tmp.p + " q: " + rsa_tmp.q);
+        }
 
             // TODO MAKE A CHECK AND IF WE FIND THE SOLUTION CLOSE ALL THREADS AND OUTPUT P AND Q
 
@@ -210,7 +228,7 @@ public abstract class GeneticAlgorithm {
     }
 
     private SimpleMatrix getPopulationFitness(SimpleMatrix population) {
-        population = makePopulationPrime(population);
+        //population = makePopulationPrime(population);
         if (type.equals("binary"))
             return getBinaryPopulationFitness(population);
         else
